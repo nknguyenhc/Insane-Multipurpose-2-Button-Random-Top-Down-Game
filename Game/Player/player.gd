@@ -95,6 +95,8 @@ const changes = {
 var freeze_chance
 var freeze_duration
 
+var background_changed = false
+
 
 func _ready():
 	game = get_parent()
@@ -111,6 +113,7 @@ func _physics_process(delta):
 			listening_switch_skill = true
 		else:
 			switch_skill()
+			listening_switch_skill = false
 	
 	if Input.is_action_just_released(button1):
 		skill_powering_up = false
@@ -127,10 +130,13 @@ func _physics_process(delta):
 
 
 func take_damage(damage):
-	health -= damage
-	invincibility = true
-	$GeneralTimers/InvincibilityTimer.start()
-	UI.get_node("RightHalf/VBoxContainer/Container/HealthBar/TextureProgress").value = health
+	if not invincibility:
+		health -= damage
+		invincibility = true
+		$GeneralTimers/InvincibilityTimer.start()
+		UI.get_node("RightHalf/VBoxContainer/Container/HealthBar/TextureProgress").value = health
+		$AnimationPlayer.play("default")
+		print(health)
 
 
 func change_sanity(value):
@@ -160,7 +166,8 @@ func switch_buttons():
 
 
 func change_background():
-	pass
+	game.get_node("Background/ParallaxBackground/Background/ColorRect").show()
+	background_changed = true
 
 
 func switch_skill():
@@ -170,6 +177,7 @@ func switch_skill():
 
 
 func _on_SwitchDetector_timeout():
+	print("switch detector time out")
 	listening_switch_skill = false
 
 
@@ -280,16 +288,17 @@ func receive_bonus():
 	var p = rng.randf()
 	var power_up
 	if p < prob_benchmark():
-		var randint = rng.randf_range(0, 2)
-		match randint:
-			0: # switch buttons
-				switch_buttons()
-			1: # disable one skill
-				disabled_skill_index = rng.randf_range(0, num_of_skills_attained - 1)
-				flip_skill_state()
-				$SkillTimers/DisableTimer.start()
-			2: # change background
-				change_background()
+		if not background_changed:
+			change_background()
+		else:
+			var randint = rng.randf_range(0, 1)
+			match randint:
+				0: # switch buttons
+					switch_buttons()
+				1: # disable one skill
+					disabled_skill_index = rng.randf_range(0, num_of_skills_attained - 1)
+					flip_skill_state()
+					$SkillTimers/DisableTimer.start()
 		
 		power_up = -1
 	else:

@@ -10,7 +10,6 @@
 [ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot Bullet.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 8 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Bullet"
@@ -38,7 +37,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 2.39429, -1.89316 ), Vector2( 2.52793, -1.51453 ), Vector2( 1.19209e-07, -0.634765 ), Vector2( 2.39429, 2.63929 ), Vector2( 1.75395, 3.04576 ) ]
 }
 

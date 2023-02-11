@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var Health_bar = preload("res://Enemies/EnemyHealthBar.tscn")
+var health_bar
+
 enum Size{small, big}
 
 const sanity_increment = 1
@@ -9,7 +12,7 @@ var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var is_blown_away = false
@@ -23,19 +26,23 @@ var freeze_duration
 func _ready():
 	if size == Size.small:
 		MAX_HEALTH = 20
-		MAX_SPEED = 50
+		MAX_SPEED = 5
 		damage = 4
 		get_node("appearance").animation = "baby"
 	else:
 		MAX_HEALTH = 100
-		MAX_SPEED = 10
+		MAX_SPEED = 1
 		damage = 8
 		get_node("appearance").animation = "adult"
 	health = MAX_HEALTH
 	speed = MAX_SPEED
-	freeze_chance = player.freeze_chance 
+	player = get_parent().get_parent().get_node("Player")
+	freeze_chance = player.freeze_chance
 	freeze_duration = player.freeze_duration
-	
+	health_bar = Health_bar.instance()
+	health_bar.position.y -= 20
+	add_child(health_bar)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -57,8 +64,8 @@ func _process(delta):
 		if not is_immobilised:
 			deal_damage(damage)
 	position += speed * (player.position - position) * delta
+	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
-	
 
 func take_damage(damage, element):
 	health -= damage
@@ -74,14 +81,14 @@ func take_damage(damage, element):
 	if element == "Wind":
 		if size == Size.small:
 			is_blown_away = true;
-			
+
 func die():
 	player.change_sanity(sanity_increment)
 	queue_free()
-	
+
 func deal_damage(damage):
 	player.take_damage(damage);
-	
+
 func _on_immobolise_timer_timeout():
 	is_immobilised = false
 

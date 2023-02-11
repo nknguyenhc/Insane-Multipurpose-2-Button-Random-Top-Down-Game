@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
+var Health_bar = preload("res://Enemies/EnemyHealthBar.tscn")
+var health_bar
+
 const sanity_increment = 20
 
 var MAX_HEALTH = 1000
 var MAX_SPEED = 5
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var stay_put = false
@@ -24,8 +27,12 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	$move_timer.start()
+	player = get_parent().get_parent().get_node("Player")
 	freeze_duration = player.freeze_duration
-	
+	health_bar = Health_bar.instance()
+	health_bar.position.y -= 25
+	add_child(health_bar)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -42,6 +49,7 @@ func _process(delta):
 	if stay_put:
 		speed = 0
 	position += speed * (player.position - position) * delta
+	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
 
 func take_damage(damage, element):
@@ -58,11 +66,11 @@ func take_damage(damage, element):
 			is_slowed = true
 			get_node("slow_timer").wait_time = freeze_duration
 			get_node("slow_timer").start()
-			
+
 func die():
 	player.change_sanity(sanity_increment)
 	queue_free()
-	
+
 func _on_immobolise_timer_timeout():
 	is_immobilised = false
 
@@ -71,7 +79,7 @@ func _on_slow_timer_timeout():
 
 func _on_hitbox_body_entered(body):
 	pass
-	
+
 func _on_move_timer_timeout():
 	stay_put = true
 
@@ -81,6 +89,7 @@ func _on_summon_timer_timeout():
 	fiery.position.x = rng.randf(position.x - 50, position.x + 50)
 	fiery.position.y = rng.randf(position.y - 50, position.y + 50)
 	fiery.size = fiery.Size[rng.randi % 2]
+	fiery.scale = Vector2(3,3)
 	get_parent().add_child(fiery)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()
