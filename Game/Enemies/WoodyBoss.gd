@@ -1,14 +1,14 @@
 extends KinematicBody2D
 
-var MAX_HEALTH = 50
-var MAX_SPEED = 50
+var MAX_HEALTH = 1000
+var MAX_SPEED = 5
 var health
 var speed
 var player = get_parent().get_node("Player")
 var is_slowed = false
 var is_immobilised = false
+var stay_put = false
 var rng = RandomNumberGenerator.new()
-var size
 var freeze_chance
 var freeze_duration
 
@@ -16,13 +16,13 @@ var freeze_duration
 func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
-	freeze_chance = player.freeze_chance
+	freeze_chance = player.freeze_chance / 2
 	freeze_duration = player.freeze_duration
+	$move_timer.start()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	check_if_outside()
 	if health <= 0:
 		die()
 	speed = lerp(speed, MAX_SPEED, 0.01)
@@ -33,8 +33,11 @@ func _process(delta):
 		get_node("appearance").speed_scale = 1
 	if is_immobilised:
 		speed = 0
+	if stay_put:
+		speed = 0
 	position += speed * (player.position - position) * delta
-	
+
+
 func take_damage(damage, element):
 	health -= damage
 	if element == "Freeze":
@@ -48,12 +51,7 @@ func take_damage(damage, element):
 			get_node("slow_timer").start()
 			
 func die():
-	player.receive_bonus()
 	queue_free()
-	
-func check_if_outside():
-	if false: #TBC
-		queue_free()
 	
 func _on_immobolise_timer_timeout():
 	is_immobilised = false
@@ -63,3 +61,5 @@ func _on_slow_timer_timeout():
 
 func _on_hitbox_body_entered(body):
 	pass
+func _on_move_timer_timeout():
+	stay_put = true

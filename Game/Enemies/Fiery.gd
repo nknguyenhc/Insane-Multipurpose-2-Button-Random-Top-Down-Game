@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-const freeze_chance = 80 #out of 100
-
 enum Size{small, big}
 
 var MAX_HEALTH = 100
@@ -16,6 +14,8 @@ var is_blown_away = false
 var is_attacking_ship = false
 var rng = RandomNumberGenerator.new()
 var size
+var freeze_chance = 80
+var freeze_duration
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +26,7 @@ func _ready():
 		get_node("appearance").animation = "baby"
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+	freeze_duration = player.freeze_duration
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,11 +60,11 @@ func take_damage(damage, element):
 	if element == "Freeze":
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
-			get_node("immobolise_timer").wait_time = 1.0 #TBC
+			get_node("immobolise_timer").wait_time = freeze_duration
 			get_node("immobolise_timer").start()
 		else:
 			is_slowed = true
-			get_node("slow_timer").wait_time = 1.0 #TBC
+			get_node("slow_timer").wait_time = freeze_duration
 			get_node("slow_timer").start()
 	if element == "Wind":
 		if size == Size.small:
