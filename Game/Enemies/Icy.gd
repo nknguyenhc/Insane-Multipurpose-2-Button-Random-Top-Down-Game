@@ -23,7 +23,7 @@ var size
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if size == Size.small:
-		MAX_HEALTH = 20
+		MAX_HEALTH = 30
 		MAX_SPEED = 100
 		damage = 4
 		get_node("appearance").animation = "baby"

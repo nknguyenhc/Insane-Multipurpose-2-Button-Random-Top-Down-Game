@@ -25,7 +25,7 @@ var freeze_duration
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if size == Size.small:
-		MAX_HEALTH = 20
+		MAX_HEALTH = 30
 		MAX_SPEED = 100
 		damage = 4
 		get_node("appearance").animation = "baby"
@@ -73,10 +73,12 @@ func take_damage(damage, element):
 		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
+			get_node("appearance").modulate = Color(0, 0.5, 1)
 			get_node("immobolise_timer").wait_time = freeze_duration
 			get_node("immobolise_timer").start()
 		else:
 			is_slowed = true
+			get_node("appearance").modulate = Color(0.5, 0.75, 1)
 			get_node("slow_timer").wait_time = freeze_duration
 			get_node("slow_timer").start()
 	if element == "Wind":
@@ -92,9 +94,11 @@ func deal_damage(damage):
 	player.take_damage(damage);
 
 func _on_immobolise_timer_timeout():
+	get_node("appearance").modulate = Color(1, 1, 1)
 	is_immobilised = false
 
 func _on_slow_timer_timeout():
+	get_node("appearance").modulate = Color(1, 1, 1)
 	is_slowed = false
 
 func _on_hitbox_body_entered(body):

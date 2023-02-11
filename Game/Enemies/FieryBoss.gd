@@ -18,7 +18,7 @@ var freeze_chance = 25
 var freeze_duration
 var level
 
-var Fiery = preload("res://Enemies/Sandy.tscn")
+var Fiery = preload("res://Enemies/Fiery.tscn")
 var fiery
 
 # Called when the node enters the scene tree for the first time.
@@ -61,10 +61,12 @@ func take_damage(damage, element):
 		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
+			get_node("appearance").modulate = Color(0, 0.5, 1)
 			get_node("immobolise_timer").wait_time = freeze_duration
 			get_node("immobolise_timer").start()
 		else:
 			is_slowed = true
+			get_node("appearance").modulate = Color(0.5, 0.75, 1)
 			get_node("slow_timer").wait_time = freeze_duration
 			get_node("slow_timer").start()
 
@@ -73,9 +75,11 @@ func die():
 	queue_free()
 
 func _on_immobolise_timer_timeout():
+	get_node("appearance").modulate = Color(1, 1, 1)
 	is_immobilised = false
 
 func _on_slow_timer_timeout():
+	get_node("appearance").modulate = Color(1, 1, 1)
 	is_slowed = false
 
 func _on_hitbox_body_entered(body):

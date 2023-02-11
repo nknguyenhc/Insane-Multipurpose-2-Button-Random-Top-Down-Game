@@ -35,14 +35,14 @@ var freeze_enabled = true
 const Ice = preload("res://Player/Bullets/Ice.tscn")
 
 const stats = {
-	earth_damage = 10,
-	earth_power_up_damage = 20,
+	earth_damage = 15,
+	earth_power_up_damage = 22.5,
 	fire_dpf = 0.3,
 	fire_power_up_dpf = 0.5,
 	wind_count = 5,
 	wind_power_up_count = 8,
-	wind_dpf = 0.1,
-	wind_power_up_dpf = 0.15,
+	wind_dpf = 0.15,
+	wind_power_up_dpf = 0.2,
 	freeze_lower_chance = 20,
 	freeze_power_up_chance = 40,
 	freeze_lower_duration = 1,
@@ -50,42 +50,42 @@ const stats = {
 }
 const changes = {
 	"earth_damage": {
-		"increment": 5,
-		"min": 10,
-		"max": 80
+		"increment": 3,
+		"min": 15,
+		"max": 30
 	},
 	"earth_power_up_damage": {
-		"increment": 12
+		"increment": 10
 	},
 	"fire_dpf": {
-		"increment": 0.02,
-		"min": 0.03,
-		"max": 0.2
+		"increment": 0.06,
+		"min": 0.3,
+		"max": 0.6
 	},
 	"fire_power_up": {
-		"increment": 0.03
+		"increment": 0.15
 	},
 	"wind_count": {
 		"increment": 1,
-		"min": 3,
+		"min": 5,
 		"max": 10
 	},
 	"wind_power_up_count": {
 		"increment": 2
 	},
 	"wind_dpf": {
-		"increment": 0.06
+		"increment": 0.03
 	},
 	"wind_power_up_dpf": {
 		"increment": 0.1
 	},
 	"freeze_lower_chance": {
-		"increment": 2,
-		"min": 5,
-		"max": 35
+		"increment": 4,
+		"min": 20,
+		"max": 40
 	},
 	"freeze_power_up_chance": {
-		"increment": 4
+		"increment": 10
 	},
 	"freeze_lower_duration": {
 		"increment": 0.1
@@ -231,6 +231,7 @@ func Fire_attack():
 		var fire = Fire.instance()
 		fire.position = position
 		if !skill_powering_up:
+			fire.scale = Vector2(1.2, 1.2)
 			fire.DPF = stats["fire_dpf"]
 		else:
 			fire.scale = Vector2(1.5, 1.5)
@@ -363,11 +364,6 @@ func receive_bonus():
 
 func _on_DisableTimer_timeout():
 	flip_skill_state()
-
-
-func _on_ChangeLevel_timeout():
-	game.get_node("Enemies").change_level()
-	acquire_new_skill()
 
 
 func _on_SanityTimer_timeout():

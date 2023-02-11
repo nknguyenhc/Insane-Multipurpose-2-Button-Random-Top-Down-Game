@@ -63,9 +63,10 @@ scale = Vector2( 0.815438, 0.815438 )
 shape = SubResource( 1 )
 
 [node name="appearance" type="AnimatedSprite" parent="."]
+scale = Vector2( 1, 1.00601 )
 frames = SubResource( 2 )
 animation = "adult"
-frame = 3
+frame = 1
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]

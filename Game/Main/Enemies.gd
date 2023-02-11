@@ -36,17 +36,26 @@ var Bosses = {
 	1: SandyBoss,
 	2: WoodyBoss
 }
-var level = 1 # 1 - infinity
+var level = 0 # 1 - infinity
 var curr_flock_size
 var enemy_index
 var rng = RandomNumberGenerator.new()
 var num_of_timer_childs = 3
 var bossfight_countdown = 3
 var prev_flock_finished = true
+var wave_index = -1
+var waves_label
 
+func _ready():
+	waves_label = get_parent().get_node("UI").get_node("LeftHalf").get_node("HBoxContainer") \
+			.get_node("Label")
+	
 func _process(delta):
 	# All enemies are dead
 	if prev_flock_finished && get_child_count() == num_of_timer_childs:
+		change_level()
+		wave_index += 1;
+		waves_label.text = " Waves cleared: " + String(wave_index)
 		prev_flock_finished = false
 		if level >= 4 and bossfight_countdown <= 0:
 			bossfight_countdown = 3
@@ -177,8 +186,8 @@ func randomise_init_pos():
 
 func change_level():
 	level += 1
-	print(level)
-	print(variant)
+	if level >= 2 and level <= 4:
+		get_parent().get_node("Player").acquire_new_skill()
 
 func _on_DarkJadeTimer_timeout():
 	var darkjade = DarkJade.instance()

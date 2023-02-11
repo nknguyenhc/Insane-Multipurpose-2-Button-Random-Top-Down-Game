@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot Bullet.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 8 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Bullet"
@@ -97,6 +98,7 @@ anims/Bullet = SubResource( 2 )
 anims/RESET = SubResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 1, 0.784314, 0.501961, 1 )
 position = Vector2( 2.39429, -1.89316 )
 rotation = 3.14144
 scale = Vector2( 0.309, 0.309 )
