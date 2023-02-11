@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Adult.png-63878775f32c28a8527a99140f89128d.stex"
+path="res://.import/Adult.png-fd7d777a8d4b4f7f204e5784ab373af3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/Sandy/Adult.png"
-dest_files=[ "res://.import/Adult.png-63878775f32c28a8527a99140f89128d.stex" ]
+source_file="res://Assets/Enemies/Sandy/Adult.png"
+dest_files=[ "res://.import/Adult.png-fd7d777a8d4b4f7f204e5784ab373af3.stex" ]
 
 [params]
 

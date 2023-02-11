@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Boss.png-642c417cdd56eeaa5427b42eba1daaf4.stex"
+path="res://.import/Boss.png-e354b071367d03ebf94a9f21ee7f905a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/Sandy/Boss.png"
-dest_files=[ "res://.import/Boss.png-642c417cdd56eeaa5427b42eba1daaf4.stex" ]
+source_file="res://Assets/Enemies/Sandy/Boss.png"
+dest_files=[ "res://.import/Boss.png-e354b071367d03ebf94a9f21ee7f905a.stex" ]
 
 [params]
 

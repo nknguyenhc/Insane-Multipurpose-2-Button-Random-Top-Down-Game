@@ -30,7 +30,8 @@ func _ready():
 	freeze_chance = player.freeze_chance 
 	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
-	health_bar.position.y -= 50
+	health_bar.position.x -= 5
+	health_bar.position.y -= 20
 	add_child(health_bar)
 	
 
