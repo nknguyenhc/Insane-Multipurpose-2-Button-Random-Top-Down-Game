@@ -33,6 +33,7 @@ func _ready():
 	speed = MAX_SPEED
 	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
+	health_bar.position.y -= 10
 	add_child(health_bar)
 	
 

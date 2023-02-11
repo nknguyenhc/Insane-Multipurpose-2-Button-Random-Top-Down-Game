@@ -29,6 +29,7 @@ func _ready():
 	$move_timer.start()
 	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
+	health_bar.position.y -= 25
 	add_child(health_bar)
 	
 
