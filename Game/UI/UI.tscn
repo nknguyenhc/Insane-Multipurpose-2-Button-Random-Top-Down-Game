@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/ActionKey.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/SwitchKey.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/HealthBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/assets/action_container.png" type="Texture" id=4]
+[ext_resource path="res://UI/UI.gd" type="Script" id=5]
+
+[node name="UI" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="CurrentAction" type="TextureRect" parent="."]
+margin_bottom = 600.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="CenterContainer" type="CenterContainer" parent="CurrentAction"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HealthBar" parent="." instance=ExtResource( 3 )]
+position = Vector2( 839, 42 )
+scale = Vector2( 4, 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 4.0
+margin_right = 512.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 508.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 302.0
+margin_right = 508.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+margin_right = 508.0
+margin_bottom = 147.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SwitchKey" parent="VBoxContainer/HBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+position = Vector2( 50, 50 )
+scale = Vector2( 4, 4 )
+frame = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+margin_top = 151.0
+margin_right = 508.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionKey" parent="VBoxContainer/HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
+position = Vector2( 50, 50 )
+scale = Vector2( 4, 4 )
+frame = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+margin_left = 516.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
