@@ -6,7 +6,7 @@ var MAX_HEALTH = 1000
 var MAX_SPEED = 5
 var health
 var speed
-var player = get_parent().get_node("Player")
+var player = get_parent().get_parent().get_node("Player")
 var is_slowed = false
 var is_immobilised = false
 var stay_put = false

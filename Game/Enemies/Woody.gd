@@ -9,7 +9,7 @@ var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_node("Player")
+var player = get_parent().get_parent().get_node("Player")
 var is_slowed = false
 var is_immobilised = false
 var is_blown_away = false

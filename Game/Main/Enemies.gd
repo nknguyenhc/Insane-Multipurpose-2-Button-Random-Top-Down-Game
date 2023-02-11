@@ -24,7 +24,7 @@ var Bosses = {
 	1 : SandyBoss,
 	2 : WoodyBoss
 }
-var level = 1 # 1 - 4
+var level = 1 # 1 - infinity
 var curr_flock_size
 var enemy_index
 var rng = RandomNumberGenerator.new()
@@ -48,15 +48,15 @@ func _process(delta):
 func _on_FlockTimer_timeout():
 	# current flock starts
 	enemy_index = 0
-	curr_flock_size = rng.randf_range(5, max(5, 2 * level))
-	$EnemyTimer.wait_time = rng.randf_range(0.1, max(10 * pow(2, -level), 1))
+	curr_flock_size = rng.randf_range(5, max(5, 2 * level)) # 5 - 2 * level
+	$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.2, -level), 1))
 	$EnemyTimer.start()
 
 func _on_EnemyTimer_timeout():
 	summon_a_small_monster()
 	enemy_index += 1
 	if enemy_index < curr_flock_size:
-		$EnemyTimer.wait_time = rng.randf_range(0.1, max(10 * pow(2, -level), 1))
+		$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.2, -level), 1))
 	else:
 		prev_flock_finished = true
 
