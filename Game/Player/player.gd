@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 
 var game
+var UI
 
 const MAX_HEALTH = 100
 var health = MAX_HEALTH
@@ -97,6 +98,7 @@ var freeze_duration
 
 func _ready():
 	game = get_parent()
+	UI = game.get_node("UI")
 
 
 func _physics_process(delta):
@@ -128,6 +130,7 @@ func take_damage(damage):
 	health -= damage
 	invincibility = true
 	$GeneralTimers/InvincibilityTimer.start()
+	UI.get_node("RightHalf/VBoxContainer/Container/HealthBar/TextureProgress").value = health
 
 
 func change_sanity(value):
@@ -138,6 +141,7 @@ func change_sanity(value):
 			sanity += value
 	else:
 		sanity = MAX_SANITY
+	UI.get_node("RightHalf/VBoxContainer/Container/SanityBar/TextureProgress").value = sanity
 
 
 func _on_InvincibilityTimer_timeout():
@@ -147,6 +151,12 @@ func _on_InvincibilityTimer_timeout():
 func switch_buttons():
 	button1 = "button2"
 	button2 = "button1"
+	if UI.get_node("LeftHalf/HBoxContainer2/VBoxContainer/SwitchKey/Label").text == "Switch":
+		UI.get_node("LeftHalf/HBoxContainer2/VBoxContainer/SwitchKey/Label").text = "Action"
+		UI.get_node("LeftHalf/HBoxContainer2/VBoxContainer2/ActionKey/Label").text = "Switch"
+	else:
+		UI.get_node("LeftHalf/HBoxContainer2/VBoxContainer/SwitchKey/Label").text = "Switch"
+		UI.get_node("LeftHalf/HBoxContainer2/VBoxContainer2/ActionKey/Label").text = "Action"
 
 
 func change_background():
@@ -156,6 +166,7 @@ func change_background():
 func switch_skill():
 	skill_index = (skill_index + 1) % num_of_skills_attained
 	$GeneralTimers/SwitchDetector.stop()
+	UI.change_element()
 
 
 func _on_SwitchDetector_timeout():
