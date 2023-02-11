@@ -63,6 +63,7 @@ shape = SubResource( 1 )
 
 [node name="appearance" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+animation = "adult"
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]
