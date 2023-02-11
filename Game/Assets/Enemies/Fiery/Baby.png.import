@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Baby.png-bcd73ccec304bdede4b7f76983665b4d.stex"
+path="res://.import/Baby.png-9276a4ab91d1ebf1fd66ecbb1a007c06.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Enemies/Fiery/Baby.png"
-dest_files=[ "res://.import/Baby.png-bcd73ccec304bdede4b7f76983665b4d.stex" ]
+source_file="res://assets/Enemies/Fiery/Baby.png"
+dest_files=[ "res://.import/Baby.png-9276a4ab91d1ebf1fd66ecbb1a007c06.stex" ]
 
 [params]
 

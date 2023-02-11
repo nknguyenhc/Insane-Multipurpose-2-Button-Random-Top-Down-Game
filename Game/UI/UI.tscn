@@ -1,77 +1,110 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/ActionKey.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/SwitchKey.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/HealthBar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/assets/action_container.png" type="Texture" id=4]
 [ext_resource path="res://UI/UI.gd" type="Script" id=5]
+[ext_resource path="res://UI/SanityBar.tscn" type="PackedScene" id=6]
 
 [node name="UI" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
 
-[node name="CurrentAction" type="TextureRect" parent="."]
+[node name="LeftHalf" type="VBoxContainer" parent="."]
+margin_right = 510.0
 margin_bottom = 600.0
-texture = ExtResource( 4 )
-expand = true
+size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="CurrentAction"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftHalf"]
+margin_right = 510.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="LeftHalf"]
+margin_top = 302.0
+margin_right = 510.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftHalf/HBoxContainer2"]
+margin_right = 510.0
+margin_bottom = 147.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SwitchKey" parent="LeftHalf/HBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+position = Vector2( 50, 50 )
+scale = Vector2( 4, 4 )
+frame = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="LeftHalf/HBoxContainer2"]
+margin_top = 151.0
+margin_right = 510.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionKey" parent="LeftHalf/HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
+position = Vector2( 50, 50 )
+scale = Vector2( 4, 4 )
+frame = 1
+
+[node name="RightHalf" type="HBoxContainer" parent="."]
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightHalf"]
+margin_bottom = 600.0
+size_flags_horizontal = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightHalf"]
+margin_left = 257.0
+margin_right = 510.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Container" type="Container" parent="RightHalf/VBoxContainer"]
+margin_right = 253.0
+margin_bottom = 298.0
+size_flags_vertical = 3
+
+[node name="SanityBar" parent="RightHalf/VBoxContainer/Container" instance=ExtResource( 6 )]
+position = Vector2( 30, 90 )
+scale = Vector2( 4, 4 )
+
+[node name="HealthBar" parent="RightHalf/VBoxContainer/Container" instance=ExtResource( 3 )]
+position = Vector2( 30, 30 )
+scale = Vector2( 4, 4 )
+
+[node name="ActionContainer" type="Container" parent="RightHalf/VBoxContainer"]
+margin_top = 302.0
+margin_right = 253.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CurrentAction" type="TextureRect" parent="RightHalf/VBoxContainer/ActionContainer"]
+anchor_left = 0.468
+anchor_top = 0.532
+anchor_right = 0.468
+anchor_bottom = 0.541
+margin_right = 16.0
+margin_bottom = 13.318
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+
+[node name="CenterContainer" type="CenterContainer" parent="RightHalf/VBoxContainer/ActionContainer/CurrentAction"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_right = 40.0
 margin_bottom = 40.0
-
-[node name="HealthBar" parent="." instance=ExtResource( 3 )]
-position = Vector2( 839, 42 )
-scale = Vector2( 4, 4 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 4.0
-margin_right = 512.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 508.0
-margin_bottom = 298.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 302.0
-margin_right = 508.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 508.0
-margin_bottom = 147.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="SwitchKey" parent="VBoxContainer/HBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
-position = Vector2( 50, 50 )
-scale = Vector2( 4, 4 )
-frame = 2
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_top = 151.0
-margin_right = 508.0
-margin_bottom = 298.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ActionKey" parent="VBoxContainer/HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
-position = Vector2( 50, 50 )
-scale = Vector2( 4, 4 )
-frame = 0
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
-margin_left = 516.0
-margin_right = 1024.0
-margin_bottom = 600.0
-size_flags_horizontal = 3

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Baby.png-a32cc8794bc27513c8b2850edb876db2.stex"
+path="res://.import/Baby.png-6b3165e3c74a50a2c115712879c7e985.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Enemies/Sandy/Baby.png"
-dest_files=[ "res://.import/Baby.png-a32cc8794bc27513c8b2850edb876db2.stex" ]
+source_file="res://assets/Enemies/Sandy/Baby.png"
+dest_files=[ "res://.import/Baby.png-6b3165e3c74a50a2c115712879c7e985.stex" ]
 
 [params]
 

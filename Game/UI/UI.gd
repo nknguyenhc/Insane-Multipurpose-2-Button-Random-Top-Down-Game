@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-onready var displayElement = $CurrentAction/CenterContainer
+onready var displayElement = $RightHalf/VBoxContainer/ActionContainer/CurrentAction/CenterContainer
 var elementInit = preload("res://UI/Elements.tscn")
 
 var elementList = ["Earth", "Wind", "Fire", "Ice"]
