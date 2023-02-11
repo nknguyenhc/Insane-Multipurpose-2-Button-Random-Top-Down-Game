@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/ActionKey.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/SwitchKey.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://UI/assets/action_container.png" type="Texture" id=4]
 [ext_resource path="res://UI/UI.gd" type="Script" id=5]
 [ext_resource path="res://UI/SanityBar.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Theme" id=1]
 
 [node name="UI" type="HBoxContainer"]
 anchor_right = 1.0
@@ -35,10 +37,10 @@ margin_right = 510.0
 margin_bottom = 147.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = SubResource( 1 )
 
 [node name="SwitchKey" parent="LeftHalf/HBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
-position = Vector2( 50, 50 )
-scale = Vector2( 4, 4 )
+position = Vector2( 50, 200 )
 frame = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="LeftHalf/HBoxContainer2"]
@@ -49,8 +51,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ActionKey" parent="LeftHalf/HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
-position = Vector2( 50, 50 )
-scale = Vector2( 4, 4 )
+position = Vector2( 50, 100 )
 frame = 1
 
 [node name="RightHalf" type="HBoxContainer" parent="."]
@@ -78,11 +79,11 @@ size_flags_vertical = 3
 
 [node name="SanityBar" parent="RightHalf/VBoxContainer/Container" instance=ExtResource( 6 )]
 position = Vector2( 30, 90 )
-scale = Vector2( 4, 4 )
+scale = Vector2( 2.5, 2.5 )
 
 [node name="HealthBar" parent="RightHalf/VBoxContainer/Container" instance=ExtResource( 3 )]
-position = Vector2( 30, 30 )
-scale = Vector2( 4, 4 )
+position = Vector2( 30, 45 )
+scale = Vector2( 2.5, 2.5 )
 
 [node name="ActionContainer" type="Container" parent="RightHalf/VBoxContainer"]
 margin_top = 302.0
@@ -96,9 +97,11 @@ anchor_left = 0.468
 anchor_top = 0.532
 anchor_right = 0.468
 anchor_bottom = 0.541
-margin_right = 16.0
-margin_bottom = 13.318
-rect_scale = Vector2( 6, 6 )
+margin_left = 31.596
+margin_top = 31.464
+margin_right = 47.596
+margin_bottom = 44.782
+rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 4 )
 
 [node name="CenterContainer" type="CenterContainer" parent="RightHalf/VBoxContainer/ActionContainer/CurrentAction"]
