@@ -1,16 +1,15 @@
 extends KinematicBody2D
 
-const sanity_increment = 1
+const sanity_increment = 10
 
 var MAX_HEALTH
 var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_node("Player")
+var player = get_parent().get_parent().get_node("Player")
 var is_slowed = false
 var is_immobilised = false
-var is_blown_away = false
 var is_attacking_ship = false
 var rng = RandomNumberGenerator.new()
 var freeze_chance
@@ -32,8 +31,7 @@ func _ready():
 func _process(delta):
 	if health <= 0:
 		die()
-	if !is_blown_away:
-		speed = lerp(speed, MAX_SPEED, 0.01)
+	speed = lerp(speed, MAX_SPEED, 0.01)
 	if is_slowed:
 		speed = MAX_SPEED / 2
 		get_node("appearance").speed_scale = 0.5
@@ -41,8 +39,6 @@ func _process(delta):
 		get_node("appearance").speed_scale = 1
 	if is_immobilised:
 		speed = 0
-	if is_blown_away:
-		speed = lerp(speed, - MAX_SPEED * 2, 0.01)
 	if is_attacking_ship:
 		speed = 0
 		if not is_immobilised:
@@ -64,6 +60,7 @@ func take_damage(damage, element):
 			get_node("slow_timer").start()
 			
 func die():
+	player.change_sanity(sanity_increment)
 	queue_free()
 	
 func deal_damage(damage):
