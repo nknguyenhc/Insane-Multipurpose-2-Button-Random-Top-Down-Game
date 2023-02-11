@@ -41,7 +41,7 @@ theme = SubResource( 1 )
 
 [node name="SwitchKey" parent="LeftHalf/HBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
 position = Vector2( 50, 200 )
-frame = 3
+frame = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="LeftHalf/HBoxContainer2"]
 margin_top = 151.0
@@ -52,7 +52,6 @@ size_flags_vertical = 3
 
 [node name="ActionKey" parent="LeftHalf/HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
 position = Vector2( 50, 100 )
-frame = 1
 
 [node name="RightHalf" type="HBoxContainer" parent="."]
 margin_left = 514.0
@@ -111,3 +110,9 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_right = 40.0
 margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="RightHalf/VBoxContainer/ActionContainer/CurrentAction"]
+visible = false
+margin_right = 16.0
+margin_bottom = 16.0
+color = Color( 0.243137, 0.243137, 0.243137, 0.835294 )
