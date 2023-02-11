@@ -184,6 +184,7 @@ func _on_SwitchDetector_timeout():
 func acquire_new_skill():
 	if num_of_skills_attained < 4:
 		num_of_skills_attained += 1
+	UI.add_element()
 
 
 func is_Earth():
