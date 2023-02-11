@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player/Bullets/fire.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="Fire" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 17.859, 17.859 )
+shape = SubResource( 1 )
+
+[node name="ExistenceTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="ExistenceTimer" to="." method="_on_ExistenceTimer_timeout"]
