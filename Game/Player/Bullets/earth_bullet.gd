@@ -2,7 +2,7 @@ extends Area2D
 
 
 const SPEED = 10
-var DAMAGE = 40
+var DAMAGE
 
 var target
 var velocity = Vector2.RIGHT
@@ -22,10 +22,6 @@ func _physics_process(delta):
 	
 	velocity = Vector2(cos(deg2rad(rotation_degrees)), sin(deg2rad(rotation_degrees))) * SPEED
 	position += velocity
-
-
-func power_up():
-	DAMAGE = 100
 
 
 func _on_EarthBullet_body_entered(body):
