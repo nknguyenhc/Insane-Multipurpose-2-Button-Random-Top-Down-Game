@@ -70,6 +70,7 @@ func _on_EnemyTimer_timeout():
 	enemy_index += 1
 	if enemy_index < curr_flock_size:
 		$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.2, -level), 1))
+		$EnemyTimer.start()
 	else:
 		prev_flock_finished = true
 		
@@ -139,8 +140,8 @@ func summon_boss():
 func randomise_init_pos():
 	var x
 	var y
-	var x_deviation = rng.randi() % 50;
-	var y_deviation = rng.randi() % 50;
+	var x_deviation = rng.randi() % 20;
+	var y_deviation = rng.randi() % 20;
 	var n = rng.randi() % 4
 	match n:
 		0:
@@ -159,4 +160,6 @@ func randomise_init_pos():
 
 func change_level():
 	level += 1
+	print(level)
+	print(variant)
 

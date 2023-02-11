@@ -21,7 +21,7 @@ var freeze_duration
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MAX_HEALTH = 100
-	MAX_SPEED = 20
+	MAX_SPEED = 100
 	damage = 8
 
 	health = MAX_HEALTH
@@ -51,7 +51,7 @@ func _process(delta):
 		speed = 0
 		if not is_immobilised:
 			deal_damage(damage)
-	position += speed * (player.position - position) * delta
+	position += speed * (player.position - position).normalized() * delta
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 	
 

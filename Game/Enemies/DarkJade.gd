@@ -6,7 +6,7 @@ var Health_bar = preload("res://Enemies/EnemyHealthBar.tscn")
 var health_bar
 
 var MAX_HEALTH = 50
-var MAX_SPEED = 50
+var MAX_SPEED = 100
 var health
 var speed
 var player
@@ -44,7 +44,7 @@ func _process(delta):
 		get_node("appearance").speed_scale = 1
 	if is_immobilised:
 		speed = 0
-	position += speed * (player.position - position) * delta
+	position += speed * (player.position - position).normalized() * delta
 	
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 	

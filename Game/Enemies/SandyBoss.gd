@@ -6,7 +6,7 @@ var health_bar
 const sanity_increment = 20
 
 var MAX_HEALTH = 1000
-var MAX_SPEED = 5
+var MAX_SPEED = 20
 var health
 var speed
 var player
@@ -51,7 +51,7 @@ func _process(delta):
 		speed = 0
 	if stay_put:
 		speed = 0
-	position += speed * (player.position - position) * delta
+	position += speed * (player.position - position).normalized() * delta
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
 
@@ -90,8 +90,8 @@ func _on_move_timer_timeout():
 func _on_summon_timer_timeout():
 	get_parent().prev_flock_finished = true
 	sandy = Sandy.instance()
-	sandy.position.x = rng.randf(position.x - 50, position.x + 50)
-	sandy.position.y = rng.randf(position.y - 50, position.y + 50)
+	sandy.position.x = rng.randf(position.x - 20, position.x + 20)
+	sandy.position.y = rng.randf(position.y - 20, position.y + 20)
 	sandy.size = sandy.Size[rng.randi % 2]
 	sandy.scale = Vector2(3,3)
 	get_parent().add_child(sandy)

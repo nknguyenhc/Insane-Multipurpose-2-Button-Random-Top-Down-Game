@@ -8,7 +8,7 @@ enum Size{small, big}
 const sanity_increment = 1
 
 var MAX_HEALTH = 100
-var MAX_SPEED = 10
+var MAX_SPEED = 20
 var damage = 8
 var health
 var speed
@@ -26,7 +26,7 @@ var freeze_duration
 func _ready():
 	if size == Size.small:
 		MAX_HEALTH = 20
-		MAX_SPEED = 50
+		MAX_SPEED = 100
 		damage = 4
 		get_node("appearance").animation = "baby"
 	health = MAX_HEALTH
@@ -58,7 +58,7 @@ func _process(delta):
 		speed = 0
 		if not is_immobilised:
 			deal_damage(damage)
-	position += speed * (player.position - position) * delta
+	position += speed * (player.position - position).normalized() * delta
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
 

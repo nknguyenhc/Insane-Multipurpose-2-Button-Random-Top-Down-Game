@@ -28,7 +28,7 @@
 [ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_2.png" type="Texture" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 100, 100 )
+extents = Vector2( 176.127, 38 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -93,7 +93,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="ChangeLevel" type="Timer" parent="GeneralTimers"]
-wait_time = 5.0
+wait_time = 30.0
 autostart = true
 
 [node name="SkillTimers" type="Node" parent="."]

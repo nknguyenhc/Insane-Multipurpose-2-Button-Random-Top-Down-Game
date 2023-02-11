@@ -24,12 +24,12 @@ var size
 func _ready():
 	if size == Size.small:
 		MAX_HEALTH = 20
-		MAX_SPEED = 50
+		MAX_SPEED = 100
 		damage = 4
 		get_node("appearance").animation = "baby"
 	else:
 		MAX_HEALTH = 100
-		MAX_SPEED = 10
+		MAX_SPEED = 20
 		damage = 8
 		get_node("appearance").animation = "adult"
 	player = get_parent().get_parent().get_node("Player")
@@ -59,7 +59,7 @@ func _process(delta):
 		speed = 0
 		if not is_immobilised:
 			deal_damage(damage)
-	position += speed * (player.position - position) * delta
+	position += speed * (player.position - position).normalized() * delta
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
 
