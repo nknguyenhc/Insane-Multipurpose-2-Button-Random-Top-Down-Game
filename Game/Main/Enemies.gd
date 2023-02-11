@@ -19,10 +19,20 @@ var Enemies = {
 	2: Sandy,
 	3: Icy
 }
+var variant = "normal"
+var Level_Variant = {
+	0: "normal",
+	1: "babies",
+	2: "adults",
+	3: "woody",
+	4: "fiery",
+	5: "sandy",
+	6: "icy"
+}
 var Bosses = {
-	0 : FieryBoss,
-	1 : SandyBoss,
-	2 : WoodyBoss
+	0: FieryBoss,
+	1: SandyBoss,
+	2: WoodyBoss
 }
 var level = 1 # 1 - infinity
 var curr_flock_size
@@ -40,6 +50,8 @@ func _process(delta):
 			bossfight_countdown = 3
 			summon_boss()
 		else:
+			if level >= 4:
+				variant = Level_Variant[randi() % 7]
 			if(rng.randi() % 2 == 0): 
 				bossfight_countdown -= 1
 			$FlockTimer.start()
@@ -61,8 +73,42 @@ func _on_EnemyTimer_timeout():
 		prev_flock_finished = true
 
 func summon_a_small_monster():
-	enemy = Enemies[rng.randi() % min(level, 4)].instance()
-	enemy.size = enemy.Size[rng.randi() % 2]
+	match variant:
+		"normal":
+			enemy = Enemies[rng.randi() % min(level, 4)].instance()
+			enemy.size = enemy.Size[rng.randi() % 2]
+		"babies":
+			enemy = Enemies[rng.randi() % 4].instance()
+			if rng.randi() % 10 < 8:
+				enemy.size = enemy.Size.small
+			else:
+				enemy.size = enemy.Size.big
+		"adults":
+			enemy = Enemies[rng.randi() % 4].instance()
+			if rng.randi() % 10 < 8:
+				enemy.size = enemy.Size.big
+			else:
+				enemy.size = enemy.Size.small
+		"woody":
+			enemy = Enemies[rng.randi() % 4].instance()
+			if rng.randi() % 10 < 8:
+				enemy = Woody.instance()
+			enemy.size = enemy.Size[rng.randi() % 2]
+		"fiery":
+			enemy = Enemies[rng.randi() % 4].instance()
+			if rng.randi() % 10 < 8:
+				enemy = Fiery.instance()
+			enemy.size = enemy.Size[rng.randi() % 2]
+		"sandy":
+			enemy = Enemies[rng.randi() % 4].instance()
+			if rng.randi() % 10 < 8:
+				enemy = Sandy.instance()
+			enemy.size = enemy.Size[rng.randi() % 2]
+		"icy":
+			enemy = Enemies[rng.randi() % 4].instance()
+			if rng.randi() % 10 < 8:
+				enemy = Icy.instance()
+			enemy.size = enemy.Size[rng.randi() % 2]
 	var pos_list = randomise_init_pos()
 	enemy.position.x = pos_list[0]
 	enemy.position.y = pos_list[1]
