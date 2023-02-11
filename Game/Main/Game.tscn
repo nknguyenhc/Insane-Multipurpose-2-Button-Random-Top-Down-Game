@@ -14,8 +14,14 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="FlockTimer" type="Timer" parent="Enemies"]
+wait_time = 2.0
+one_shot = true
+
+[node name="EnemyTimer" type="Timer" parent="Enemies"]
+one_shot = true
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 491, 324 )
 
 [connection signal="timeout" from="Enemies/FlockTimer" to="Enemies" method="_on_FlockTimer_timeout"]
+[connection signal="timeout" from="Enemies/EnemyTimer" to="Enemies" method="_on_EnemyTimer_timeout"]

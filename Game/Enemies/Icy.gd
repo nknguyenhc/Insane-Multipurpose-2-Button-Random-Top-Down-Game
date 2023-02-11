@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 enum Size{small, big}
 
+const sanity_increment = 1
+
 var MAX_HEALTH
 var MAX_SPEED
 var damage
@@ -63,6 +65,7 @@ func take_damage(damage, element):
 			is_blown_away = true;
 			
 func die():
+	player.change_sanity(sanity_increment)
 	queue_free()
 	
 func deal_damage(damage):

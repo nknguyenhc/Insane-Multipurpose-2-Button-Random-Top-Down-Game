@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const sanity_increment = 1
+
 var MAX_HEALTH = 50
 var MAX_SPEED = 50
 var health
@@ -49,6 +51,7 @@ func take_damage(damage, element):
 			
 func die():
 	player.receive_bonus()
+	player.change_sanity(sanity_increment)
 	queue_free()
 	
 func check_if_outside():

@@ -79,7 +79,11 @@ one_shot = true
 wait_time = 10.0
 one_shot = true
 
+[node name="summon_timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="immobolise_timer" to="." method="_on_immobolise_timer_timeout"]
 [connection signal="timeout" from="slow_timer" to="." method="_on_slow_timer_timeout"]
 [connection signal="timeout" from="move_timer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="summon_timer" to="." method="_on_summon_timer_timeout"]
