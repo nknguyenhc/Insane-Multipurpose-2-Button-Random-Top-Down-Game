@@ -6,7 +6,7 @@ var MAX_HEALTH = 1000
 var MAX_SPEED = 5
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var stay_put = false
@@ -24,7 +24,9 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	$move_timer.start()
+	player = get_parent().get_parent().get_node("Player")
 	freeze_duration = player.freeze_duration
+
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,6 +83,7 @@ func _on_summon_timer_timeout():
 	fiery.position.x = rng.randf(position.x - 50, position.x + 50)
 	fiery.position.y = rng.randf(position.y - 50, position.y + 50)
 	fiery.size = fiery.Size[rng.randi % 2]
+	fiery.scale = Vector2(3,3)
 	get_parent().add_child(fiery)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()

@@ -127,10 +127,13 @@ func _physics_process(delta):
 
 
 func take_damage(damage):
-	health -= damage
-	invincibility = true
-	$GeneralTimers/InvincibilityTimer.start()
-	UI.get_node("RightHalf/VBoxContainer/Container/HealthBar/TextureProgress").value = health
+	if not invincibility:
+		health -= damage
+		invincibility = true
+		$GeneralTimers/InvincibilityTimer.start()
+		UI.get_node("RightHalf/VBoxContainer/Container/HealthBar/TextureProgress").value = health
+		$AnimationPlayer.play("default")
+		print(health)
 
 
 func change_sanity(value):

@@ -39,7 +39,7 @@ var level = 1 # 1 - infinity
 var curr_flock_size
 var enemy_index
 var rng = RandomNumberGenerator.new()
-var num_of_timer_childs = 2
+var num_of_timer_childs = 3
 var bossfight_countdown = 3
 var prev_flock_finished = true
 
@@ -79,13 +79,17 @@ func _on_TerrorTimer_timeout():
 		var pos_list = randomise_init_pos()
 		terror.position.x = pos_list[0]
 		terror.position.y = pos_list[1]
+		terror.scale = Vector2(3,3)
 		add_child(terror)
 
 func summon_a_small_monster():
 	match variant:
 		"normal":
 			enemy = Enemies[rng.randi() % min(level, 4)].instance()
-			enemy.size = enemy.Size[rng.randi() % 2]
+			if rng.randi() % 2 == 1:
+				enemy.size = enemy.Size.small
+			else:
+				enemy.size = enemy.Size.big
 		"babies":
 			enemy = Enemies[rng.randi() % 4].instance()
 			if rng.randi() % 10 < 8:
@@ -121,6 +125,7 @@ func summon_a_small_monster():
 	var pos_list = randomise_init_pos()
 	enemy.position.x = pos_list[0]
 	enemy.position.y = pos_list[1]
+	enemy.scale = Vector2(3,3)
 	add_child(enemy)
 
 func summon_boss():
@@ -128,6 +133,7 @@ func summon_boss():
 	var pos_list = randomise_init_pos()
 	enemy.position.x = pos_list[0]
 	enemy.position.y = pos_list[1]
+	enemy.scale = Vector2(3,3)
 	add_child(enemy)
 	
 func randomise_init_pos():

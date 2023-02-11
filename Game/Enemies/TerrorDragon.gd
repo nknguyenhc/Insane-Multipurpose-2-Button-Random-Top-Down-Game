@@ -7,7 +7,7 @@ var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var is_attacking_ship = false
@@ -23,6 +23,7 @@ func _ready():
 
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+	player = get_parent().get_parent().get_node("Player")
 	freeze_chance = player.freeze_chance 
 	freeze_duration = player.freeze_duration
 	

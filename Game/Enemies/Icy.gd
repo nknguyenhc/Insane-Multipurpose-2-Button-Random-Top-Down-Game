@@ -9,7 +9,7 @@ var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var is_blown_away = false
@@ -29,8 +29,10 @@ func _ready():
 		MAX_SPEED = 10
 		damage = 8
 		get_node("appearance").animation = "adult"
+	player = get_parent().get_parent().get_node("Player")
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -9,7 +9,7 @@ var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var is_blown_away = false
@@ -23,18 +23,20 @@ var freeze_duration
 func _ready():
 	if size == Size.small:
 		MAX_HEALTH = 20
-		MAX_SPEED = 50
+		MAX_SPEED = 5
 		damage = 4
 		get_node("appearance").animation = "baby"
 	else:
 		MAX_HEALTH = 100
-		MAX_SPEED = 10
+		MAX_SPEED = 1
 		damage = 8
 		get_node("appearance").animation = "adult"
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+	player = get_parent().get_parent().get_node("Player")
 	freeze_chance = player.freeze_chance 
 	freeze_duration = player.freeze_duration
+
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

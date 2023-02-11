@@ -9,7 +9,7 @@ var MAX_SPEED = 10
 var damage = 8
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var is_blown_away = false
@@ -28,6 +28,7 @@ func _ready():
 		get_node("appearance").animation = "baby"
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+	player = get_parent().get_parent().get_node("Player")
 	freeze_duration = player.freeze_duration
 	
 
