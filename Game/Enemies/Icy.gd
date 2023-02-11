@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const freeze_chance = 20 #out of 100
 
-enum Size{small, big, boss}
+enum Size{small, big}
 
 var MAX_HEALTH = 100
 var MAX_SPEED = 10
@@ -52,16 +52,10 @@ func _process(delta):
 	
 
 func take_damage(damage, element):
-	health -= damage
-	if element == "Freeze":
-		if(rng.randi() % 100 < freeze_chance):
-			is_immobilised = true
-			get_node("immobolise_timer").wait_time = 1.0 #TBC
-			get_node("immobolise_timer").start()
-		else:
-			is_slowed = true
-			get_node("slow_timer").wait_time = 1.0 #TBC
-			get_node("slow_timer").start()
+	if element == "Fire":
+		health -= damage * 1.5
+	elif element != "Freeze":
+		health -= damage
 	if element == "Wind":
 		if size == Size.small:
 			is_blown_away = true;
