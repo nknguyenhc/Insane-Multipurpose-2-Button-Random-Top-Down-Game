@@ -31,7 +31,7 @@ func _ready():
 	freeze_duration = player.freeze_duration
 	$move_timer.start()
 	health_bar = Health_bar.instance()
-	health_bar.position.x -= 6
+	health_bar.position.x -= 0
 	health_bar.position.y -= 15
 	add_child(health_bar)
 	
@@ -51,7 +51,7 @@ func _process(delta):
 	if stay_put:
 		speed = 0
 	position += speed * (player.position - position).normalized() * delta
-	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
+	health_bar.get_node("TextureProgress").value = round(float(health) / MAX_HEALTH * 100)
 	
 
 func take_damage(damage, element):
