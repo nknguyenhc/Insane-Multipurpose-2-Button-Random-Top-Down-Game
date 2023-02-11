@@ -9,7 +9,7 @@ var MAX_HEALTH = 1000
 var MAX_SPEED = 5
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var stay_put = false
@@ -26,13 +26,14 @@ func _ready():
 	level = get_parent().level
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+	player = get_parent().get_parent().get_node("Player")
 	freeze_chance = player.freeze_chance / 2
 	freeze_duration = player.freeze_duration
 	$move_timer.start()
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	health_bar = Health_bar.instance()
 	add_child(health_bar)
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -50,7 +51,7 @@ func _process(delta):
 		speed = 0
 	position += speed * (player.position - position) * delta
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
-	
+
 
 func take_damage(damage, element):
 	if element == "Earth":
@@ -67,11 +68,11 @@ func take_damage(damage, element):
 			is_slowed = true
 			get_node("slow_timer").wait_time = freeze_duration
 			get_node("slow_timer").start()
-			
+
 func die():
 	player.change_sanity(sanity_increment)
 	queue_free()
-	
+
 func _on_immobolise_timer_timeout():
 	is_immobilised = false
 
@@ -80,7 +81,7 @@ func _on_slow_timer_timeout():
 
 func _on_hitbox_body_entered(body):
 	pass
-	
+
 func _on_move_timer_timeout():
 	stay_put = true
 
@@ -90,6 +91,7 @@ func _on_summon_timer_timeout():
 	sandy.position.x = rng.randf(position.x - 50, position.x + 50)
 	sandy.position.y = rng.randf(position.y - 50, position.y + 50)
 	sandy.size = sandy.Size[rng.randi % 2]
+	sandy.scale = Vector2(3,3)
 	get_parent().add_child(sandy)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()

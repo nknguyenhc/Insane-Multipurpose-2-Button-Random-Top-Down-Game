@@ -9,7 +9,7 @@ var MAX_HEALTH = 1000
 var MAX_SPEED = 5
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var stay_put = false
@@ -26,6 +26,7 @@ func _ready():
 	level = get_parent().level
 	health = MAX_HEALTH
 	speed = MAX_SPEED
+	player = get_parent().get_parent().get_node("Player")
 	freeze_chance = player.freeze_chance / 2
 	freeze_duration = player.freeze_duration
 	$move_timer.start()
@@ -85,6 +86,7 @@ func _on_summon_timer_timeout():
 	woody.position.x = rng.randf(position.x - 50, position.x + 50)
 	woody.position.y = rng.randf(position.y - 50, position.y + 50)
 	woody.size = woody.Size[rng.randi % 2]
+	woody.scale = Vector2(3,3)
 	get_parent().add_child(woody)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()

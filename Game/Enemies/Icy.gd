@@ -12,7 +12,7 @@ var MAX_SPEED
 var damage
 var health
 var speed
-var player = get_parent().get_parent().get_node("Player")
+var player
 var is_slowed = false
 var is_immobilised = false
 var is_blown_away = false
@@ -32,11 +32,12 @@ func _ready():
 		MAX_SPEED = 10
 		damage = 8
 		get_node("appearance").animation = "adult"
+	player = get_parent().get_parent().get_node("Player")
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	health_bar = Health_bar.instance()
 	add_child(health_bar)
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -60,7 +61,7 @@ func _process(delta):
 	position += speed * (player.position - position) * delta
 	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
-	
+
 
 func take_damage(damage, element):
 	if element == "Fire":
@@ -69,14 +70,14 @@ func take_damage(damage, element):
 	if element == "Wind":
 		if size == Size.small:
 			is_blown_away = true;
-			
+
 func die():
 	player.change_sanity(sanity_increment)
 	queue_free()
-	
+
 func deal_damage(damage):
 	player.take_damage(damage);
-	
+
 func _on_immobolise_timer_timeout():
 	is_immobilised = false
 

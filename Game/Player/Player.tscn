@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_13.png" type="Texture" id=2]
@@ -30,6 +30,19 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 100 )
 
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 24 ), null ],
+"loop": true,
+"name": "damaged",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 14 ), ExtResource( 26 ), ExtResource( 21 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 25 ), ExtResource( 20 ), ExtResource( 23 ), ExtResource( 22 ) ],
@@ -46,6 +59,21 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Animation" id=5]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -57,7 +85,7 @@ shape = SubResource( 1 )
 [node name="GeneralTimers" type="Node" parent="."]
 
 [node name="InvincibilityTimer" type="Timer" parent="GeneralTimers"]
-wait_time = 0.5
+wait_time = 1.5
 one_shot = true
 
 [node name="SwitchDetector" type="Timer" parent="GeneralTimers"]
@@ -85,9 +113,10 @@ wait_time = 3.0
 wait_time = 3.0
 one_shot = true
 
-[node name="ShipSprite" type="Sprite" parent="."]
-rotation = -3.13935
-texture = ExtResource( 24 )
+[node name="ShipSprite" type="AnimatedSprite" parent="."]
+rotation = -3.13596
+frames = SubResource( 4 )
+animation = "damaged"
 
 [node name="Character1" type="AnimatedSprite" parent="."]
 position = Vector2( -115, -6 )
@@ -98,6 +127,9 @@ frames = SubResource( 2 )
 position = Vector2( 81, -3 )
 scale = Vector2( 0.216651, 0.216651 )
 frames = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 5 )
 
 [connection signal="timeout" from="GeneralTimers/InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
 [connection signal="timeout" from="GeneralTimers/SwitchDetector" to="." method="_on_SwitchDetector_timeout"]
