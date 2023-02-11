@@ -3,7 +3,7 @@ extends Node
 const MIN_X = 20
 const MAX_X = 1000
 const MIN_Y = 20
-const MAX_Y = 550
+const MAX_Y = 580
 
 var Fiery = preload("res://Enemies/Fiery.tscn")
 var Icy = preload("res://Enemies/Icy.tscn")
@@ -158,13 +158,13 @@ func randomise_init_pos():
 	match n:
 		0:
 			x = MAX_X + x_deviation
-			y = MAX_X + y_deviation
+			y = MAX_Y + y_deviation
 		1:
 			x = MAX_X + x_deviation
 			y = MIN_Y - y_deviation
 		2:
 			x = MIN_X - x_deviation
-			y = MAX_X + y_deviation
+			y = MAX_Y + y_deviation
 		3:
 			x = MIN_X - x_deviation
 			y = MIN_Y - y_deviation
