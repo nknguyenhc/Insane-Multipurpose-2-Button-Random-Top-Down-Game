@@ -32,6 +32,7 @@ var fire_enabled = true
 const Wind = preload("res://Player/Bullets/Wind.tscn")
 var wind_enabled = true
 var freeze_enabled = true
+const Ice = preload("res://Player/Bullets/Ice.tscn")
 
 const stats = {
 	earth_damage = 40,
@@ -94,8 +95,8 @@ const changes = {
 	}
 }
 
-var freeze_chance
-var freeze_duration
+var freeze_chance = stats["freeze_lower_chance"]
+var freeze_duration = stats["freeze_lower_duration"]
 
 var background_changed = false
 
@@ -128,6 +129,7 @@ func _physics_process(delta):
 		print(sanity)
 	
 	if Input.is_action_just_pressed(button2):
+		print(freeze_chance)
 		if skill_index == 0:
 			Earth_attack()
 		elif skill_index == 1:
@@ -260,7 +262,11 @@ func Freeze_attack():
 	if freeze_enabled:
 		freeze_enabled = false
 		$SkillTimers/FreezeCooldown.start()
+		var ice = Ice.instance()
+		ice.scale = Vector2(10, 10)
+		ice.position = position
 		if !skill_powering_up:
+			print(freeze_chance)
 			freeze_chance = stats["freeze_lower_chance"]
 			freeze_duration = stats["freeze_lower_duration"]
 		else:
@@ -272,6 +278,7 @@ func Freeze_attack():
 		enemies.remove(0)
 		for enemy in enemies:
 			enemy.take_damage(0, "Freeze")
+		get_parent().add_child(ice)
 
 
 func _on_EarthCooldown_timeout():
