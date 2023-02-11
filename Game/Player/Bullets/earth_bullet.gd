@@ -11,7 +11,7 @@ const MAX_ANGLE_CHANGE = 10 # in degrees
 
 
 func _physics_process(delta):
-	if target != null:
+	if target != null and weakref(target).get_ref():
 		var desired_direction = target.position - position
 		var clockwise = velocity.angle_to(desired_direction) <= PI
 		var angle_change
