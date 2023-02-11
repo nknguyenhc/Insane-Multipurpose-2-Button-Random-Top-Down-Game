@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 const sanity_increment = 1
 
+var Health_bar = preload("res://Enemies/EnemyHealthBar.tscn")
+var health_bar
+
 var MAX_HEALTH = 50
 var MAX_SPEED = 50
 var health
@@ -14,12 +17,15 @@ var size
 var freeze_chance
 var freeze_duration
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	freeze_chance = player.freeze_chance
 	freeze_duration = player.freeze_duration
+	health_bar = Health_bar.instance()
+	add_child(health_bar)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,6 +42,8 @@ func _process(delta):
 	if is_immobilised:
 		speed = 0
 	position += speed * (player.position - position) * delta
+	
+	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 	
 func take_damage(damage, element):
 	health -= damage

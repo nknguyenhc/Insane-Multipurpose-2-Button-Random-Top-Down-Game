@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var Health_bar = preload("res://Enemies/EnemyHealthBar.tscn")
+var health_bar
+
 enum Size{small, big}
 
 const sanity_increment = 1
@@ -29,6 +32,8 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	freeze_duration = player.freeze_duration
+	health_bar = Health_bar.instance()
+	add_child(health_bar)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,8 +56,8 @@ func _process(delta):
 		if not is_immobilised:
 			deal_damage(damage)
 	position += speed * (player.position - position) * delta
+	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
 
-	
 
 func take_damage(damage, element):
 	if element == "Fire":
