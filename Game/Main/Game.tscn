@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/game.gd" type="Script" id=2]
 [ext_resource path="res://Main/Enemies.gd" type="Script" id=3]
+[ext_resource path="res://UI/UI.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
+
+[node name="UI" parent="." instance=ExtResource( 4 )]
 
 [node name="Enemies" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -18,6 +21,7 @@ one_shot = true
 one_shot = true
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 491, 324 )
 
 [connection signal="timeout" from="Enemies/FlockTimer" to="Enemies" method="_on_FlockTimer_timeout"]
 [connection signal="timeout" from="Enemies/EnemyTimer" to="Enemies" method="_on_EnemyTimer_timeout"]
