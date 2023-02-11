@@ -5,6 +5,7 @@ var elementInit = preload("res://UI/Elements.tscn")
 
 var elementList = ["Earth", "Wind", "Fire", "Ice"]
 var elements = []
+var iconSpacing = -15
 var counter = 0
 
 
@@ -15,14 +16,26 @@ func _ready():
 	var firstElement = elementInit.instance()
 	var rng = elementList[randi() % 4]
 	firstElement.animation = rng
+	
 	elements.append(rng)
+	elementList.erase(rng)
 	displayElement.add_child(firstElement)
-	elements.append(elementList[randi() % 4])
 
 
 
 func _process(delta):
 	if (Input.is_action_just_pressed("ui_accept")):
-		counter += 1
 		for element in displayElement.get_children():
-			element.animation = elements[counter % elements.size()]
+			print(elements)
+			element.animation = elements[(elements.find(element.animation) + 1) % elements.size()]
+	if (Input.is_action_just_pressed("ui_down") && elementList.size() != 0):
+		var rng = elementList[randi() % elementList.size()]
+		var newElement = elementInit.instance()
+		newElement.animation = rng
+		elements.append(rng)
+		elementList.erase(rng)
+		displayElement.add_child(newElement)
+		print(newElement.position.y)
+		newElement.position.y += iconSpacing * (elements.size() - 1)
+		print(newElement.position.y)
+		

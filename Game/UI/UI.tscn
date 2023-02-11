@@ -12,11 +12,11 @@ script = ExtResource( 5 )
 [node name="SwitchKey" parent="." instance=ExtResource( 2 )]
 position = Vector2( 48, 460 )
 scale = Vector2( 4, 4 )
+frame = 1
 
 [node name="ActionKey" parent="." instance=ExtResource( 1 )]
 position = Vector2( 48, 532 )
 scale = Vector2( 4, 4 )
-frame = 2
 
 [node name="CurrentAction" type="TextureRect" parent="."]
 anchor_left = 0.5
@@ -35,8 +35,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_right = 16.0
-margin_bottom = 16.0
+margin_right = 40.0
+margin_bottom = 40.0
 
 [node name="HealthBar" parent="." instance=ExtResource( 3 )]
 position = Vector2( 839, 42 )
