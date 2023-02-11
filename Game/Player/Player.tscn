@@ -85,18 +85,16 @@ wait_time = 3.0
 wait_time = 3.0
 one_shot = true
 
-[node name="Sprites" type="Node" parent="."]
-
-[node name="ShipSprite" type="Sprite" parent="Sprites"]
+[node name="ShipSprite" type="Sprite" parent="."]
 rotation = -3.13935
 texture = ExtResource( 24 )
 
-[node name="Character1" type="AnimatedSprite" parent="Sprites"]
+[node name="Character1" type="AnimatedSprite" parent="."]
 position = Vector2( -115, -6 )
 scale = Vector2( 0.235132, 0.229199 )
 frames = SubResource( 2 )
 
-[node name="Character2" type="AnimatedSprite" parent="Sprites"]
+[node name="Character2" type="AnimatedSprite" parent="."]
 position = Vector2( 81, -3 )
 scale = Vector2( 0.216651, 0.216651 )
 frames = SubResource( 3 )
