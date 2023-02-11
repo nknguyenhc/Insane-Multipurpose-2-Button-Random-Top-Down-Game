@@ -1,36 +1,101 @@
 extends Node
 
+const MIN_X = 0
+const MAX_X = 1024
+const MIN_Y = 0
+const MAX_Y = 600
+
 var Fiery = preload("res://Enemies/Fiery.tscn")
 var Icy = preload("res://Enemies/Icy.tscn")
 var Sandy = preload("res://Enemies/Sandy.tscn")
 var Woody = preload("res://Enemies/Woody.tscn")
+var FieryBoss = preload("res://Enemies/FieryBoss.tscn")
+var SandyBoss = preload("res://Enemies/SandyBoss.tscn")
+var WoodyBoss = preload("res://Enemies/Woody.tscn")
 var enemy
 var Enemies = {
-	0: Fiery,
-	1: Icy,
+	0: Woody,
+	1: Fiery,
 	2: Sandy,
-	3: Woody
+	3: Icy
 }
-
-var num_of_enemy_in_each_flock
-var enemy_index = 0
+var Bosses = {
+	0 : FieryBoss,
+	1 : SandyBoss,
+	2 : WoodyBoss
+}
+var level = 1 # 1 - 4
+var curr_flock_size
+var enemy_index
 var rng = RandomNumberGenerator.new()
-var num_of_timer_childs = 1
+var num_of_timer_childs = 2
+var bossfight_countdown = 3
+var prev_flock_finished = true
 
 func _process(delta):
 	# All enemies are dead
-	if get_child_count() == num_of_timer_childs:
-		$FlockTimer.start()
+	if prev_flock_finished && get_child_count() == num_of_timer_childs:
+		prev_flock_finished = false
+		if level >= 4 and bossfight_countdown <= 0:
+			bossfight_countdown = 3
+			summon_boss()
+		else:
+			if(rng.randi() % 2 == 0): 
+				bossfight_countdown -= 1
+			$FlockTimer.start()
 
 
 func _on_FlockTimer_timeout():
-	num_of_enemy_in_each_flock = 2 + (rng.randi() % 3)
-	while (enemy_index < num_of_enemy_in_each_flock):
-		summon_a_small_monster()
+	# current flock starts
+	enemy_index = 0
+	curr_flock_size = rng.randf_range(5, max(5, 2 * level))
+	$EnemyTimer.wait_time = rng.randf_range(0.1, max(10 * pow(2, -level), 1))
+	$EnemyTimer.start()
 
+func _on_EnemyTimer_timeout():
+	summon_a_small_monster()
+	enemy_index += 1
+	if enemy_index < curr_flock_size:
+		$EnemyTimer.wait_time = rng.randf_range(0.1, max(10 * pow(2, -level), 1))
+	else:
+		prev_flock_finished = true
 
 func summon_a_small_monster():
-	enemy = Enemies[rng.randi() % 4].instance()
+	enemy = Enemies[rng.randi() % min(level, 4)].instance()
 	enemy.size = enemy.Size[rng.randi() % 2]
+	var pos_list = randomise_init_pos()
+	enemy.position.x = pos_list[0]
+	enemy.position.y = pos_list[1]
 	add_child(enemy)
-	#position?motion?
+
+func summon_boss():
+	enemy = Bosses[rng.randi() % 3].instance()
+	var pos_list = randomise_init_pos()
+	enemy.position.x = pos_list[0]
+	enemy.position.y = pos_list[1]
+	add_child(enemy)
+	
+func randomise_init_pos():
+	var x
+	var y
+	var x_deviation = rng.randi() % 50;
+	var y_deviation = rng.randi() % 50;
+	var n = rng.randi() % 4
+	match n:
+		0:
+			x = MAX_X + x_deviation
+			y = MAX_X + y_deviation
+		1:
+			x = MAX_X + x_deviation
+			y = MIN_Y - y_deviation
+		2:
+			x = MIN_X - x_deviation
+			y = MAX_X + y_deviation
+		3:
+			x = MIN_X - x_deviation
+			y = MIN_Y - y_deviation
+	return [x, y]
+
+func change_level():
+	level += 1
+

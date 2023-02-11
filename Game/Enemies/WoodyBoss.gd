@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const sanity_increment = 20
+
 var MAX_HEALTH = 1000
 var MAX_SPEED = 5
 var health
@@ -11,9 +13,14 @@ var stay_put = false
 var rng = RandomNumberGenerator.new()
 var freeze_chance
 var freeze_duration
+var level
+
+var Woody = preload("res://Enemies/Sandy.tscn")
+var woody
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	level = get_parent().level
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	freeze_chance = player.freeze_chance / 2
@@ -51,6 +58,7 @@ func take_damage(damage, element):
 			get_node("slow_timer").start()
 			
 func die():
+	player.change_sanity(sanity_increment)
 	queue_free()
 	
 func _on_immobolise_timer_timeout():
@@ -61,5 +69,16 @@ func _on_slow_timer_timeout():
 
 func _on_hitbox_body_entered(body):
 	pass
+	
 func _on_move_timer_timeout():
 	stay_put = true
+	
+func _on_summon_timer_timeout():
+	get_parent().prev_flock_finished = true
+	woody = Woody.instance()
+	woody.position.x = rng.randf(position.x - 50, position.x + 50)
+	woody.position.y = rng.randf(position.y - 50, position.y + 50)
+	woody.size = woody.Size[rng.randi % 2]
+	get_parent().add_child(woody)
+	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
+	$summon_timer.start()
