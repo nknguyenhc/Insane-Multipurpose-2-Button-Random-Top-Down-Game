@@ -136,6 +136,9 @@ func _physics_process(delta):
 			Wind_attack()
 		elif skill_index == 3:
 			Freeze_attack()
+	
+	if health <= 0:
+		get_parent().get_parent().player_die()
 
 
 func take_damage(damage):
