@@ -54,10 +54,13 @@ func nearest_enemies(n):
 	enemies.remove(0)
 	enemies.remove(0)
 	for enemy in enemies:
-		if nearest_enemies.size() < n:
+		if nearest_enemies.empty():
+			nearest_enemies.append(enemy)
+		elif nearest_enemies.size() < n:
 			insert(nearest_enemies, enemy)
 		elif (enemy.position - $Player.position).length() < (nearest_enemies[n - 1].position - $Player.position).length():
 			insert(nearest_enemies, enemy)
+	print(nearest_enemies.size())
 	return nearest_enemies
 
 

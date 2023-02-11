@@ -184,7 +184,7 @@ func _on_SwitchDetector_timeout():
 func acquire_new_skill():
 	if num_of_skills_attained < 4:
 		num_of_skills_attained += 1
-	UI.add_element()
+		UI.add_element()
 
 
 func is_Earth():
@@ -224,12 +224,15 @@ func Fire_attack():
 
 func Wind_attack():
 	if wind_enabled:
+		print("attack")
 		wind_enabled = false
 		$SkillTimers/WindCooldown.start()
 		var count = stats["wind_count"]
 		if skill_powering_up:
 			count = stats["wind_power_up_count"]
+		print(count)
 		for enemy in game.nearest_enemies(count):
+			print("count")
 			var wind = Wind.instance()
 			wind.scale = Vector2(5, 5)
 			wind.position = enemy.position
