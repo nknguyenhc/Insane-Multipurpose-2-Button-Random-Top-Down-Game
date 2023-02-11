@@ -73,7 +73,7 @@ func insert(enemies, new_enemy, n):
 		else:
 			i += 1
 	if enemies.size() > n:
-		for i in range(enemies.size(), n):
+		for j in range(enemies.size(), n):
 			enemies.remove(n)
 
 

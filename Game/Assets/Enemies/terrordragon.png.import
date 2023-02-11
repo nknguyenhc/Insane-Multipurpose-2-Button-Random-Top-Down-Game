@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TerrorDragon.png-8fcc22fa2d985de1e12c04d40bea7427.stex"
+path="res://.import/TerrorDragon.png-e20f681fb07fec0ede4fe291bea40074.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/TerrorDragon.png"
-dest_files=[ "res://.import/TerrorDragon.png-8fcc22fa2d985de1e12c04d40bea7427.stex" ]
+source_file="res://Assets/Enemies/TerrorDragon.png"
+dest_files=[ "res://.import/TerrorDragon.png-e20f681fb07fec0ede4fe291bea40074.stex" ]
 
 [params]
 

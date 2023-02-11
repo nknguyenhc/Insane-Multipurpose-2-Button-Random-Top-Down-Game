@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NPC_10.png-12ad4b62f5aee4f3c96c4bd0cd2e08f9.stex"
+path="res://.import/NPC_10.png-84d5dcba3a3b7349719e4ae7333462da.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Characters/NPC 3/Frame/NPC_10.png"
-dest_files=[ "res://.import/NPC_10.png-12ad4b62f5aee4f3c96c4bd0cd2e08f9.stex" ]
+source_file="res://Assets/Characters/NPC 3/Frame/NPC_10.png"
+dest_files=[ "res://.import/NPC_10.png-84d5dcba3a3b7349719e4ae7333462da.stex" ]
 
 [params]
 

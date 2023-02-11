@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Adult.png-e317d04ab51b1859df042940a709fb37.stex"
+path="res://.import/Adult.png-b55e36dc3bdc53aa5974d336848cd3a0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/Icy/Adult.png"
-dest_files=[ "res://.import/Adult.png-e317d04ab51b1859df042940a709fb37.stex" ]
+source_file="res://Assets/Enemies/Icy/Adult.png"
+dest_files=[ "res://.import/Adult.png-b55e36dc3bdc53aa5974d336848cd3a0.stex" ]
 
 [params]
 
