@@ -1,4 +1,4 @@
-extends Node2D
+extends HBoxContainer
 
 onready var displayElement = $CurrentAction/CenterContainer
 var elementInit = preload("res://UI/Elements.tscn")
