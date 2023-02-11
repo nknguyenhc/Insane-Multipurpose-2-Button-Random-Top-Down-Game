@@ -1,15 +1,100 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player/Bullets/earth_bullet.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot FX (6).png" type="Texture" id=2]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot FX (3).png" type="Texture" id=3]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot FX (5).png" type="Texture" id=4]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot FX (2).png" type="Texture" id=5]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot FX (4).png" type="Texture" id=6]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot FX (1).png" type="Texture" id=7]
+[ext_resource path="res://Assets/Bullets/Earth/Swift Dual Shot Bullet.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 8 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Bullet"
+length = 1.4
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 2.39429, -1.89316 ), Vector2( 2.52793, -1.51453 ), Vector2( 1.19209e-07, -0.634765 ), Vector2( 2.39429, 2.63929 ), Vector2( 1.75395, 3.04576 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.39429, -1.89316 ) ]
+}
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="EarthBullet" type="Area2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -4.32275 ],
+"_edit_vertical_guides_": [ -2.94768 ]
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Bullet = SubResource( 2 )
+anims/RESET = SubResource( 4 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 2.39429, -1.89316 )
+rotation = 3.14144
+scale = Vector2( 0.309, 0.309 )
+frames = SubResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_EarthBullet_body_entered"]
