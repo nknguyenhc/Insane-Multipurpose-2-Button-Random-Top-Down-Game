@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Swift Dual Shot FX (5).png-292725b9ac0594ac8412336242bd3119.stex"
+path="res://.import/Swift Dual Shot FX (5).png-15040199daf7a1d872964b1ca4f8e795.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Bullets/Earth/Swift Dual Shot FX (5).png"
-dest_files=[ "res://.import/Swift Dual Shot FX (5).png-292725b9ac0594ac8412336242bd3119.stex" ]
+source_file="res://Assets/Bullets/Earth/Swift Dual Shot FX (5).png"
+dest_files=[ "res://.import/Swift Dual Shot FX (5).png-15040199daf7a1d872964b1ca4f8e795.stex" ]
 
 [params]
 
