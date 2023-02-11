@@ -6,21 +6,21 @@
 
 [sub_resource type="CircleShape2D" id=10]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 0, 3, 16, 13 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 16, 3, 16, 13 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 32, 3, 16, 13 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 48, 3, 16, 13 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
@@ -40,7 +40,7 @@ region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "adult",
 "speed": 5.0
@@ -52,25 +52,27 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=11]
-radius = 7.07107
 
 [node name="Woody" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 2 )
+position = Vector2( -1, 1 )
+scale = Vector2( 0.747216, 0.747216 )
 shape = SubResource( 10 )
 
 [node name="appearance" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "adult"
-frame = 1
+frame = 3
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]
+scale = Vector2( 0.959821, 0.959821 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2( -1, 2 )
+position = Vector2( -1.04186, 1.04186 )
+scale = Vector2( 0.538249, 0.538249 )
 shape = SubResource( 11 )
 
 [node name="immobolise_timer" type="Timer" parent="."]
@@ -79,6 +81,6 @@ one_shot = true
 [node name="slow_timer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="hitbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="immobolise_timer" to="." method="_on_immobolise_timer_timeout"]
 [connection signal="timeout" from="slow_timer" to="." method="_on_slow_timer_timeout"]

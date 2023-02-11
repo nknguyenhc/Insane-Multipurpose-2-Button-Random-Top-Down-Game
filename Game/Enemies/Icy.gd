@@ -1,12 +1,10 @@
 extends KinematicBody2D
 
-const freeze_chance = 20 #out of 100
-
 enum Size{small, big}
 
-var MAX_HEALTH = 100
-var MAX_SPEED = 10
-var damage = 8
+var MAX_HEALTH
+var MAX_SPEED
+var damage
 var health
 var speed
 var player = get_parent().get_node("Player")
@@ -24,6 +22,11 @@ func _ready():
 		MAX_SPEED = 50
 		damage = 4
 		get_node("appearance").animation = "baby"
+	else:
+		MAX_HEALTH = 100
+		MAX_SPEED = 10
+		damage = 8
+		get_node("appearance").animation = "adult"
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	
@@ -53,9 +56,8 @@ func _process(delta):
 
 func take_damage(damage, element):
 	if element == "Fire":
-		health -= damage * 1.5
-	elif element != "Freeze":
-		health -= damage
+		damage *= 1.5
+	health -= damage
 	if element == "Wind":
 		if size == Size.small:
 			is_blown_away = true;
