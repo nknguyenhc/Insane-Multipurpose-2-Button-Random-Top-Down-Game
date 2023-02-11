@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/ActionKey.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/SwitchKey.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/HealthBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/assets/action_container.png" type="Texture" id=4]
+
+[node name="UI" type="Node2D"]
+
+[node name="SwitchKey" parent="." instance=ExtResource( 2 )]
+position = Vector2( 48, 460 )
+scale = Vector2( 4, 4 )
+frame = 1
+
+[node name="ActionKey" parent="." instance=ExtResource( 1 )]
+position = Vector2( 48, 532 )
+scale = Vector2( 4, 4 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.3
+margin_left = 906.0
+margin_top = 476.0
+margin_right = 922.0
+margin_bottom = 492.0
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="HealthBar" parent="." instance=ExtResource( 3 )]
+position = Vector2( 839, 42 )
+scale = Vector2( 4, 4 )
