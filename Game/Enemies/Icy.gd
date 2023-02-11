@@ -36,7 +36,7 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	health_bar = Health_bar.instance()
-	health_bar.position.y -= 20
+	health_bar.position.y -= 15
 	add_child(health_bar)
 
 
