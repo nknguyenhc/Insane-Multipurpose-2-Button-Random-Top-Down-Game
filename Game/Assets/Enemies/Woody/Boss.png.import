@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Boss.png-70ae4e0ba15f68896903ce0b316f0a65.stex"
+path="res://.import/Boss.png-e24d8108c2a49adaeb61bba9b8012083.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/Woody/Boss.png"
-dest_files=[ "res://.import/Boss.png-70ae4e0ba15f68896903ce0b316f0a65.stex" ]
+source_file="res://Assets/Enemies/Woody/Boss.png"
+dest_files=[ "res://.import/Boss.png-e24d8108c2a49adaeb61bba9b8012083.stex" ]
 
 [params]
 

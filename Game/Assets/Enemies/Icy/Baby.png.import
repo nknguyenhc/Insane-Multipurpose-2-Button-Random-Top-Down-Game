@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Baby.png-7e12712adf9e1561ec87c817d9dfa4af.stex"
+path="res://.import/Baby.png-493a28deb255b146d90625bcc447c785.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/Icy/Baby.png"
-dest_files=[ "res://.import/Baby.png-7e12712adf9e1561ec87c817d9dfa4af.stex" ]
+source_file="res://Assets/Enemies/Icy/Baby.png"
+dest_files=[ "res://.import/Baby.png-493a28deb255b146d90625bcc447c785.stex" ]
 
 [params]
 
