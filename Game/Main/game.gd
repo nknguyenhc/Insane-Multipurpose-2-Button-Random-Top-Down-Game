@@ -27,6 +27,8 @@ func _physics_process(delta):
 
 func nearest_enemy():
 	var enemies = $Enemies.get_children()
+	enemies.remove(0)
+	enemies.remove(0)
 	if enemies.size() > 0:
 		var nearest_enemy = enemies[0]
 		var smallest_distance = (nearest_enemy.position - $Player.position).length()
@@ -43,6 +45,8 @@ func nearest_enemy():
 func nearest_enemies(n):
 	var nearest_enemies = []
 	var enemies = $Enemies.get_children()
+	enemies.remove(0)
+	enemies.remove(0)
 	for enemy in enemies:
 		if nearest_enemies.size() < n:
 			insert(nearest_enemies, enemy)

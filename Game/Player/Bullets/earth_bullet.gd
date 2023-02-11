@@ -11,14 +11,15 @@ const MAX_ANGLE_CHANGE = 10 # in degrees
 
 
 func _physics_process(delta):
-	var desired_direction = target.position - position
-	var clockwise = velocity.angle_to(desired_direction) <= PI
-	var angle_change
-	if clockwise:
-		angle_change = min(rad2deg(velocity.angle_to(desired_direction)), MAX_ANGLE_CHANGE)
-	else:
-		angle_change = max(rad2deg(velocity.angle_to(desired_direction)), -MAX_ANGLE_CHANGE)
-	rotation_degrees += angle_change
+	if target != null:
+		var desired_direction = target.position - position
+		var clockwise = velocity.angle_to(desired_direction) <= PI
+		var angle_change
+		if clockwise:
+			angle_change = min(rad2deg(velocity.angle_to(desired_direction)), MAX_ANGLE_CHANGE)
+		else:
+			angle_change = max(rad2deg(velocity.angle_to(desired_direction)), -MAX_ANGLE_CHANGE)
+		rotation_degrees += angle_change
 	
 	velocity = Vector2(cos(deg2rad(rotation_degrees)), sin(deg2rad(rotation_degrees))) * SPEED
 	position += velocity

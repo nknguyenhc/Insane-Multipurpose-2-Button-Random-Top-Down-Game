@@ -184,15 +184,18 @@ func is_Earth():
 
 func Earth_attack():
 	if earth_enabled:
+		print("earth attack!")
 		earth_enabled = false
 		$SkillTimers/EarthCooldown.start()
 		var earth_bullet = EarthBullet.instance()
+		earth_bullet.scale = Vector2(5, 5)
 		earth_bullet.position = position
 		earth_bullet.target = game.nearest_enemy()
 		if !skill_powering_up:
 			earth_bullet.DAMAGE = stats["earth_damage"]
 		else:
 			earth_bullet.DAMAGE = stats["earth_power_up_damage"]
+		get_parent().add_child(earth_bullet)
 
 
 func Fire_attack():
@@ -200,11 +203,13 @@ func Fire_attack():
 		fire_enabled = false
 		$SkillTimers/FireCooldown.start()
 		var fire = Fire.instance()
+		fire.scale = Vector2(5, 5)
 		fire.position = position
 		if !skill_powering_up:
 			fire.DPF = stats["fire_dpf"]
 		else:
 			fire.DPF = stats["fire_power_up_dpf"]
+		get_parent().add_child(fire)
 
 
 func Wind_attack():
@@ -216,12 +221,14 @@ func Wind_attack():
 			count = stats["wind_power_up_count"]
 		for enemy in game.nearest_enemies(count):
 			var wind = Wind.instance()
+			wind.scale = Vector2(5, 5)
 			wind.position = enemy.position
 			wind.target = enemy
 			if !skill_powering_up:
 				wind.DPF = stats["wind_dpf"]
 			else:
 				wind.DPF = stats["wind_power_up_dpf"]
+			get_parent().add_child(wind)
 
 
 func Freeze_attack():

@@ -41,7 +41,7 @@ theme = SubResource( 1 )
 
 [node name="SwitchKey" parent="LeftHalf/HBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
 position = Vector2( 50, 200 )
-frame = 3
+frame = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="LeftHalf/HBoxContainer2"]
 margin_top = 151.0
@@ -52,7 +52,7 @@ size_flags_vertical = 3
 
 [node name="ActionKey" parent="LeftHalf/HBoxContainer2/VBoxContainer2" instance=ExtResource( 1 )]
 position = Vector2( 50, 100 )
-frame = 1
+frame = 0
 
 [node name="RightHalf" type="HBoxContainer" parent="."]
 margin_left = 514.0
