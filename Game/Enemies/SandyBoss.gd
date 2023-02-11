@@ -32,7 +32,7 @@ func _ready():
 	$move_timer.start()
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	health_bar = Health_bar.instance()
-	health_bar.position.x -= 4
+	health_bar.position.x -= 6
 	health_bar.position.y -= 15
 	add_child(health_bar)
 
