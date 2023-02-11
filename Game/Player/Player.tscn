@@ -93,6 +93,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="ChangeLevel" type="Timer" parent="GeneralTimers"]
+wait_time = 5.0
 autostart = true
 
 [node name="SkillTimers" type="Node" parent="."]
