@@ -198,6 +198,7 @@ func Earth_attack():
 		var earth_bullet = EarthBullet.instance()
 		earth_bullet.scale = Vector2(5, 5)
 		earth_bullet.position = position
+		earth_bullet.position.x += 130
 		earth_bullet.target = game.nearest_enemy()
 		if !skill_powering_up:
 			earth_bullet.DAMAGE = stats["earth_damage"]
@@ -334,3 +335,8 @@ func receive_bonus():
 
 func _on_DisableTimer_timeout():
 	flip_skill_state()
+
+
+func _on_ChangeLevel_timeout():
+	game.get_node("Enemies").change_level()
+	acquire_new_skill()
