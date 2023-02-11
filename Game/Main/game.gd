@@ -64,3 +64,4 @@ func insert(enemies, new_enemy):
 func delete_earth_aiming():
 	if weakref(earth_aiming).get_ref():
 		earth_aiming.queue_free()
+
