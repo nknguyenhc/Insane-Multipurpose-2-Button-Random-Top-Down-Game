@@ -12,6 +12,7 @@ var Woody = preload("res://Enemies/Woody.tscn")
 var FieryBoss = preload("res://Enemies/FieryBoss.tscn")
 var SandyBoss = preload("res://Enemies/SandyBoss.tscn")
 var WoodyBoss = preload("res://Enemies/Woody.tscn")
+var Terror = preload("res://Enemies/TerrorDragon.tscn")
 var enemy
 var Enemies = {
 	0: Woody,
@@ -71,6 +72,14 @@ func _on_EnemyTimer_timeout():
 		$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.2, -level), 1))
 	else:
 		prev_flock_finished = true
+		
+func _on_TerrorTimer_timeout():
+	if $"../Player".sanity < $"../Player".SANITY_THRESHOLD:
+		var terror = Terror.instance()
+		var pos_list = randomise_init_pos()
+		terror.position.x = pos_list[0]
+		terror.position.y = pos_list[1]
+		add_child(terror)
 
 func summon_a_small_monster():
 	match variant:

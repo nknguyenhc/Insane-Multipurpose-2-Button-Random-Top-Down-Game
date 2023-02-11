@@ -20,8 +20,12 @@ one_shot = true
 [node name="EnemyTimer" type="Timer" parent="Enemies"]
 one_shot = true
 
+[node name="TerrorTimer" type="Timer" parent="Enemies"]
+wait_time = 10.0
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 491, 324 )
 
 [connection signal="timeout" from="Enemies/FlockTimer" to="Enemies" method="_on_FlockTimer_timeout"]
 [connection signal="timeout" from="Enemies/EnemyTimer" to="Enemies" method="_on_EnemyTimer_timeout"]
+[connection signal="timeout" from="Enemies/TerrorTimer" to="Enemies" method="_on_TerrorTimer_timeout"]
