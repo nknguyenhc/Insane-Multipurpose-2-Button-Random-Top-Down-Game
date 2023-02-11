@@ -12,6 +12,8 @@ const MAX_SANITY = 100
 var sanity = MAX_SANITY
 const SANITY_THRESHOLD = 30
 const PROB = 0.6
+var sanity_decreasing = false
+var sanity_decrease_pf = 0.05
 var rng = RandomNumberGenerator.new()
 
 var disabled_skill_index
@@ -107,6 +109,7 @@ func _physics_process(delta):
 	
 	# skills
 	if Input.is_action_just_pressed(button1):
+		$GeneralTimers/SanityTimer.start()
 		skill_powering_up = true
 		if not listening_switch_skill:
 			$GeneralTimers/SwitchDetector.start()
@@ -117,6 +120,12 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released(button1):
 		skill_powering_up = false
+		sanity_decreasing = false
+		$GeneralTimers/SanityTimer.stop()
+	
+	if sanity_decreasing:
+		change_sanity(-sanity_decrease_pf)
+		print(sanity)
 	
 	if Input.is_action_just_pressed(button2):
 		if skill_index == 0:
@@ -177,7 +186,6 @@ func switch_skill():
 
 
 func _on_SwitchDetector_timeout():
-	print("switch detector time out")
 	listening_switch_skill = false
 
 
@@ -254,7 +262,11 @@ func Freeze_attack():
 		else:
 			freeze_chance = stats["freeze_power_up_chance"]
 			freeze_duration = stats["freeze_power_up_duration"]
-		for enemy in game.get_node("Enemies").get_children():
+		var enemies = game.get_node("Enemies").get_children()
+		enemies.remove(0)
+		enemies.remove(0)
+		enemies.remove(0)
+		for enemy in enemies:
 			enemy.take_damage(0, "Freeze")
 
 
@@ -344,3 +356,7 @@ func _on_DisableTimer_timeout():
 func _on_ChangeLevel_timeout():
 	game.get_node("Enemies").change_level()
 	acquire_new_skill()
+
+
+func _on_SanityTimer_timeout():
+	sanity_decreasing = true

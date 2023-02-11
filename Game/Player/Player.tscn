@@ -96,6 +96,10 @@ one_shot = true
 wait_time = 30.0
 autostart = true
 
+[node name="SanityTimer" type="Timer" parent="GeneralTimers"]
+wait_time = 0.4
+one_shot = true
+
 [node name="SkillTimers" type="Node" parent="."]
 
 [node name="EarthCooldown" type="Timer" parent="SkillTimers"]
@@ -138,6 +142,7 @@ anims/default = SubResource( 5 )
 [connection signal="timeout" from="GeneralTimers/InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
 [connection signal="timeout" from="GeneralTimers/SwitchDetector" to="." method="_on_SwitchDetector_timeout"]
 [connection signal="timeout" from="GeneralTimers/ChangeLevel" to="." method="_on_ChangeLevel_timeout"]
+[connection signal="timeout" from="GeneralTimers/SanityTimer" to="." method="_on_SanityTimer_timeout"]
 [connection signal="timeout" from="SkillTimers/EarthCooldown" to="." method="_on_EarthCooldown_timeout"]
 [connection signal="timeout" from="SkillTimers/FireCooldown" to="." method="_on_FireCooldown_timeout"]
 [connection signal="timeout" from="SkillTimers/WindCooldown" to="." method="_on_WindCooldown_timeout"]
