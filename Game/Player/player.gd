@@ -213,7 +213,7 @@ func Fire_attack():
 		fire_enabled = false
 		$SkillTimers/FireCooldown.start()
 		var fire = Fire.instance()
-		fire.scale = Vector2(5, 5)
+		fire.scale = Vector2(1, 1)
 		fire.position = position
 		if !skill_powering_up:
 			fire.DPF = stats["fire_dpf"]
