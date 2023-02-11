@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Rolling Moonsault FX (2).png-9c41712182c4d0babdff15b74b05eab6.stex"
+path="res://.import/Rolling Moonsault FX (2).png-e66ad7c830577713ff19c00ad81d2f8b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Bullets/Fire/Rolling Moonsault FX (2).png"
-dest_files=[ "res://.import/Rolling Moonsault FX (2).png-9c41712182c4d0babdff15b74b05eab6.stex" ]
+source_file="res://assets/Bullets/Fire/Rolling Moonsault FX (2).png"
+dest_files=[ "res://.import/Rolling Moonsault FX (2).png-e66ad7c830577713ff19c00ad81d2f8b.stex" ]
 
 [params]
 

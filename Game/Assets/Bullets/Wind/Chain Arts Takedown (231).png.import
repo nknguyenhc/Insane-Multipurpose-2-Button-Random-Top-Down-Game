@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Chain Arts Takedown (231).png-44a1740acbb6428a9f86c8c2ccf7e3a5.stex"
+path="res://.import/Chain Arts Takedown (231).png-b19189611188d2be419fb197b3757513.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Bullets/Wind/Chain Arts Takedown (231).png"
-dest_files=[ "res://.import/Chain Arts Takedown (231).png-44a1740acbb6428a9f86c8c2ccf7e3a5.stex" ]
+source_file="res://assets/Bullets/Wind/Chain Arts Takedown (231).png"
+dest_files=[ "res://.import/Chain Arts Takedown (231).png-b19189611188d2be419fb197b3757513.stex" ]
 
 [params]
 

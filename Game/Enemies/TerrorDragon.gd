@@ -30,7 +30,7 @@ func _ready():
 	freeze_chance = player.freeze_chance 
 	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
-	health_bar.position.x -= 5
+	health_bar.position.x -= 0
 	health_bar.position.y -= 20
 	add_child(health_bar)
 	
@@ -52,7 +52,7 @@ func _process(delta):
 		if not is_immobilised:
 			deal_damage(damage)
 	position += speed * (player.position - position).normalized() * delta
-	health_bar.get_node("TextureProgress").value = health / MAX_HEALTH * 100
+	health_bar.get_node("TextureProgress").value = round(float(health) / MAX_HEALTH * 100)
 	
 
 func take_damage(damage, element):

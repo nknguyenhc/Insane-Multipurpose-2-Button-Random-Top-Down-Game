@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Chain Arts Takedown (238).png-ea9d2aa2e01838cdefa9e752a746e068.stex"
+path="res://.import/Pixel1_Healthbar_0001_pixel1_enemybar.png-66ac0922ebaa1ae9c44542ac19e59a22.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Bullets/Wind/Chain Arts Takedown (238).png"
-dest_files=[ "res://.import/Chain Arts Takedown (238).png-ea9d2aa2e01838cdefa9e752a746e068.stex" ]
+source_file="res://UI/assets/Pixel1_Healthbar_0001_pixel1_enemybar.png"
+dest_files=[ "res://.import/Pixel1_Healthbar_0001_pixel1_enemybar.png-66ac0922ebaa1ae9c44542ac19e59a22.stex" ]
 
 [params]
 
