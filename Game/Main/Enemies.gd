@@ -107,22 +107,34 @@ func summon_a_small_monster():
 			enemy = Enemies[rng.randi() % 4].instance()
 			if rng.randi() % 10 < 8:
 				enemy = Woody.instance()
-			enemy.size = enemy.Size[rng.randi() % 2]
+			if rng.randi() % 2 == 1:
+				enemy.size = enemy.Size.small
+			else:
+				enemy.size = enemy.Size.big
 		"fiery":
 			enemy = Enemies[rng.randi() % 4].instance()
 			if rng.randi() % 10 < 8:
 				enemy = Fiery.instance()
-			enemy.size = enemy.Size[rng.randi() % 2]
+			if rng.randi() % 2 == 1:
+				enemy.size = enemy.Size.small
+			else:
+				enemy.size = enemy.Size.big
 		"sandy":
 			enemy = Enemies[rng.randi() % 4].instance()
 			if rng.randi() % 10 < 8:
 				enemy = Sandy.instance()
-			enemy.size = enemy.Size[rng.randi() % 2]
+			if rng.randi() % 2 == 1:
+				enemy.size = enemy.Size.small
+			else:
+				enemy.size = enemy.Size.big
 		"icy":
 			enemy = Enemies[rng.randi() % 4].instance()
 			if rng.randi() % 10 < 8:
 				enemy = Icy.instance()
-			enemy.size = enemy.Size[rng.randi() % 2]
+			if rng.randi() % 2 == 1:
+				enemy.size = enemy.Size.small
+			else:
+				enemy.size = enemy.Size.big
 	var pos_list = randomise_init_pos()
 	enemy.position.x = pos_list[0]
 	enemy.position.y = pos_list[1]
