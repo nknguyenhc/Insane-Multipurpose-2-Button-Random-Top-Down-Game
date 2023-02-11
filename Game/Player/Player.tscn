@@ -1,18 +1,58 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_13.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_14.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_7.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_8.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_4.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_9.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_11.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_3.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_10.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_12.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_5.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_6.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_1.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_4.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_5.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_6.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_7.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_8.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_10.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_3.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_12.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_11.png" type="Texture" id=23]
+[ext_resource path="res://Assets/HeavyBB_Hull.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_9.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Characters/NPC 1/Frame/NPC_2.png" type="Texture" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 100, 100 )
+extents = Vector2( 176.127, 38 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 14 ), ExtResource( 26 ), ExtResource( 21 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 25 ), ExtResource( 20 ), ExtResource( 23 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -13.5, 0 )
 scale = Vector2( 1.00212, 1 )
 shape = SubResource( 1 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
 [node name="GeneralTimers" type="Node" parent="."]
 
@@ -38,8 +78,33 @@ one_shot = true
 wait_time = 0.9
 one_shot = true
 
+[node name="FreezeCooldown" type="Timer" parent="SkillTimers"]
+wait_time = 3.0
+
+[node name="DisableTimer" type="Timer" parent="SkillTimers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Sprites" type="Node" parent="."]
+
+[node name="ShipSprite" type="Sprite" parent="Sprites"]
+rotation = -3.13935
+texture = ExtResource( 24 )
+
+[node name="Character1" type="AnimatedSprite" parent="Sprites"]
+position = Vector2( -115, -6 )
+scale = Vector2( 0.235132, 0.229199 )
+frames = SubResource( 2 )
+
+[node name="Character2" type="AnimatedSprite" parent="Sprites"]
+position = Vector2( 81, -3 )
+scale = Vector2( 0.216651, 0.216651 )
+frames = SubResource( 3 )
+
 [connection signal="timeout" from="GeneralTimers/InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
 [connection signal="timeout" from="GeneralTimers/SwitchDetector" to="." method="_on_SwitchDetector_timeout"]
 [connection signal="timeout" from="SkillTimers/EarthCooldown" to="." method="_on_EarthCooldown_timeout"]
 [connection signal="timeout" from="SkillTimers/FireCooldown" to="." method="_on_FireCooldown_timeout"]
 [connection signal="timeout" from="SkillTimers/WindCooldown" to="." method="_on_WindCooldown_timeout"]
+[connection signal="timeout" from="SkillTimers/FreezeCooldown" to="." method="_on_FreezeCooldown_timeout"]
+[connection signal="timeout" from="SkillTimers/DisableTimer" to="." method="_on_DisableTimer_timeout"]

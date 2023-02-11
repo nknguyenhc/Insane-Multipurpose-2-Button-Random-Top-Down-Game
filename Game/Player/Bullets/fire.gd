@@ -1,7 +1,7 @@
 extends Area2D
 
 
-var DPF = 0.1
+var DPF
 
 
 func _physics_process(delta):
@@ -10,10 +10,6 @@ func _physics_process(delta):
 		if body.name != "Player":
 			# do some effects
 			body.take_damage(DPF, "Fire")
-
-
-func power_up():
-	DPF = 0.17
 
 
 func _on_ExistenceTimer_timeout():

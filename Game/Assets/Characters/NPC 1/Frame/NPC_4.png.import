@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/elf_front_idle.png-90846d47e504d99f75a067b10a8b1910.stex"
+path="res://.import/NPC_4.png-f44ca1336087b9282e693d7ddf78bedb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/elf_front_idle.png"
-dest_files=[ "res://.import/elf_front_idle.png-90846d47e504d99f75a067b10a8b1910.stex" ]
+source_file="res://Assets/Characters/NPC 1/Frame/NPC_4.png"
+dest_files=[ "res://.import/NPC_4.png-f44ca1336087b9282e693d7ddf78bedb.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
