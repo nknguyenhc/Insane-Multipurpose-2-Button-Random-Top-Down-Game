@@ -74,6 +74,11 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "small",
+"speed": 5.0
 } ]
 
 [node name="EarthBullet" type="Area2D"]

@@ -71,7 +71,8 @@ func take_damage(damage, element):
 	health -= damage
 	if element == "Wind":
 		if size == Size.small:
-			is_blown_away = true;
+			is_blown_away = true
+			$blow_timer.start()
 
 func die():
 	player.change_sanity(sanity_increment)
@@ -89,3 +90,6 @@ func _on_slow_timer_timeout():
 func _on_hitbox_body_entered(body):
 	if body == player:
 		is_attacking_ship = true
+
+func _on_blow_timer_timeout():
+	is_blown_away = false

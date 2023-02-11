@@ -59,6 +59,7 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 2 )
+scale = Vector2( 0.815438, 0.815438 )
 shape = SubResource( 1 )
 
 [node name="appearance" type="AnimatedSprite" parent="."]
@@ -79,6 +80,11 @@ one_shot = true
 [node name="slow_timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="blow_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="immobolise_timer" to="." method="_on_immobolise_timer_timeout"]
 [connection signal="timeout" from="slow_timer" to="." method="_on_slow_timer_timeout"]
+[connection signal="timeout" from="blow_timer" to="." method="_on_blow_timer_timeout"]

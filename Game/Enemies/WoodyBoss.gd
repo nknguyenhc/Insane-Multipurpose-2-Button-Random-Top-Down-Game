@@ -27,8 +27,6 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	player = get_parent().get_parent().get_node("Player")
-	freeze_chance = player.freeze_chance / 2
-	freeze_duration = player.freeze_duration
 	$move_timer.start()
 	health_bar = Health_bar.instance()
 	health_bar.position.x -= 0
@@ -57,6 +55,8 @@ func _process(delta):
 func take_damage(damage, element):
 	health -= damage
 	if element == "Freeze":
+		freeze_chance = player.freeze_chance / 2
+		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
 			get_node("immobolise_timer").wait_time = freeze_duration
@@ -85,10 +85,16 @@ func _on_move_timer_timeout():
 func _on_summon_timer_timeout():
 	get_parent().prev_flock_finished = true
 	woody = Woody.instance()
-	woody.position.x = rng.randf(position.x - 20, position.x + 20)
-	woody.position.y = rng.randf(position.y - 20, position.y + 20)
-	woody.size = woody.Size[rng.randi % 2]
-	woody.scale = Vector2(3,3)
+	woody.position.x = rng.randf_range(position.x - 20, position.x + 20)
+	woody.position.y = rng.randf_range(position.y - 20, position.y + 20)
+	if rng.randi() % 2 == 1:
+		woody.size = woody.Size.small
+	else:
+		woody.size = woody.Size.big
+	if woody.size == woody.Size.small:
+		woody.scale = Vector2(2.5,2.5)
+	else:
+		woody.scale = Vector2(4,4)
 	get_parent().add_child(woody)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()

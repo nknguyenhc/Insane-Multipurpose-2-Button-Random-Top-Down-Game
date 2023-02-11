@@ -34,6 +34,11 @@ one_shot = true
 [node name="TerrorTimer" type="Timer" parent="Enemies"]
 wait_time = 10.0
 
+[node name="DarkJadeTimer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
 [connection signal="timeout" from="Enemies/FlockTimer" to="Enemies" method="_on_FlockTimer_timeout"]
 [connection signal="timeout" from="Enemies/EnemyTimer" to="Enemies" method="_on_EnemyTimer_timeout"]
 [connection signal="timeout" from="Enemies/TerrorTimer" to="Enemies" method="_on_TerrorTimer_timeout"]
+[connection signal="timeout" from="DarkJadeTimer" to="Enemies" method="_on_DarkJadeTimer_timeout"]

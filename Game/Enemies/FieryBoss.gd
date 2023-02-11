@@ -28,7 +28,6 @@ func _ready():
 	speed = MAX_SPEED
 	$move_timer.start()
 	player = get_parent().get_parent().get_node("Player")
-	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
 	health_bar.position.x -= 0
 	health_bar.position.y -= 15
@@ -59,6 +58,7 @@ func take_damage(damage, element):
 	else:
 		health -= damage
 	if element == "Freeze":
+		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
 			get_node("immobolise_timer").wait_time = freeze_duration
@@ -87,10 +87,17 @@ func _on_move_timer_timeout():
 func _on_summon_timer_timeout():
 	get_parent().prev_flock_finished = true
 	fiery = Fiery.instance()
-	fiery.position.x = rng.randf(position.x - 20, position.x + 20)
-	fiery.position.y = rng.randf(position.y - 20, position.y + 20)
-	fiery.size = fiery.Size[rng.randi % 2]
-	fiery.scale = Vector2(3,3)
+	fiery.position.x = rng.randf_range(position.x - 20, position.x + 20)
+	fiery.position.y = rng.randf_range(position.y - 20, position.y + 20)
+	if rng.randi() % 2 == 1:
+		fiery.size = fiery.Size.small
+	else:
+		fiery.size = fiery.Size.big
+	if fiery.size == fiery.Size.small:
+		fiery.scale = Vector2(2.5,2.5)
+	else:
+		fiery.scale = Vector2(4,4)
 	get_parent().add_child(fiery)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()
+

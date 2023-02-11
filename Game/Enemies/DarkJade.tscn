@@ -37,10 +37,11 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 5.96046e-08 )
-scale = Vector2( 0.823271, 0.615308 )
+scale = Vector2( 0.628286, 0.469577 )
 shape = SubResource( 10 )
 
 [node name="appearance" type="AnimatedSprite" parent="."]
+modulate = Color( 0.929412, 0.976471, 0.517647, 1 )
 frames = SubResource( 1 )
 animation = "baby"
 frame = 1

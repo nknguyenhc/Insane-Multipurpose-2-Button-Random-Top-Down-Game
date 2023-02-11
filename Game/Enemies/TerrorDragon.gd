@@ -27,8 +27,6 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	player = get_parent().get_parent().get_node("Player")
-	freeze_chance = player.freeze_chance 
-	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
 	health_bar.position.x -= 0
 	health_bar.position.y -= 20
@@ -58,6 +56,8 @@ func _process(delta):
 func take_damage(damage, element):
 	health -= damage
 	if element == "Freeze":
+		freeze_chance = player.freeze_chance
+		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
 			get_node("immobolise_timer").wait_time = freeze_duration

@@ -37,8 +37,6 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	player = get_parent().get_parent().get_node("Player")
-	freeze_chance = player.freeze_chance
-	freeze_duration = player.freeze_duration
 	health_bar = Health_bar.instance()
 	health_bar.position.x -= 0
 	health_bar.position.y -= 8
@@ -75,6 +73,8 @@ func take_damage(damage, element):
 		damage *= 1.5
 	health -= damage
 	if element == "Freeze":
+		freeze_chance = player.freeze_chance
+		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
 			get_node("immobolise_timer").wait_time = freeze_duration
@@ -85,7 +85,8 @@ func take_damage(damage, element):
 			get_node("slow_timer").start()
 	if element == "Wind":
 		if size == Size.small:
-			is_blown_away = true;
+			is_blown_away = true
+			$blow_timer.start()
 			
 func die():
 	player.change_sanity(sanity_increment)
@@ -103,3 +104,6 @@ func _on_slow_timer_timeout():
 func _on_hitbox_body_entered(body):
 	if body == player:
 		is_attacking_ship = true
+
+func _on_blow_timer_timeout():
+	is_blown_away = true

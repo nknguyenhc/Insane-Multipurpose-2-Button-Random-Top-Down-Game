@@ -13,6 +13,7 @@ var FieryBoss = preload("res://Enemies/FieryBoss.tscn")
 var SandyBoss = preload("res://Enemies/SandyBoss.tscn")
 var WoodyBoss = preload("res://Enemies/Woody.tscn")
 var Terror = preload("res://Enemies/TerrorDragon.tscn")
+var DarkJade = preload("res://Enemies/DarkJade.tscn")
 var enemy
 var Enemies = {
 	0: Woody,
@@ -62,14 +63,14 @@ func _on_FlockTimer_timeout():
 	# current flock starts
 	enemy_index = 0
 	curr_flock_size = rng.randf_range(5, max(5, 2 * level)) # 5 - 2 * level
-	$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.4, -level), 1))
+	$EnemyTimer.wait_time = rng.randf_range(0.1, max(8 * pow(1.2, -level), 1))
 	$EnemyTimer.start()
 
 func _on_EnemyTimer_timeout():
 	summon_a_small_monster()
 	enemy_index += 1
 	if enemy_index < curr_flock_size:
-		$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.4, -level), 1))
+		$EnemyTimer.wait_time = rng.randf_range(0.1, max(8 * pow(1.2, -level), 1))
 		$EnemyTimer.start()
 	else:
 		prev_flock_finished = true
@@ -138,7 +139,10 @@ func summon_a_small_monster():
 	var pos_list = randomise_init_pos()
 	enemy.position.x = pos_list[0]
 	enemy.position.y = pos_list[1]
-	enemy.scale = Vector2(3,3)
+	if enemy.size == enemy.Size.small:
+		enemy.scale = Vector2(2.5,2.5)
+	else:
+		enemy.scale = Vector2(4,4)
 	add_child(enemy)
 
 func summon_boss():
@@ -146,7 +150,8 @@ func summon_boss():
 	var pos_list = randomise_init_pos()
 	enemy.position.x = pos_list[0]
 	enemy.position.y = pos_list[1]
-	enemy.scale = Vector2(3,3)
+	enemy.scale = Vector2(6,6)
+		
 	add_child(enemy)
 	
 func randomise_init_pos():
@@ -157,17 +162,17 @@ func randomise_init_pos():
 	var n = rng.randi() % 4
 	match n:
 		0:
-			x = MAX_X + x_deviation
+			x = rng.randi_range(MIN_X, MAX_X)
 			y = MAX_Y + y_deviation
 		1:
-			x = MAX_X + x_deviation
+			x = rng.randi_range(MIN_X, MAX_X)
 			y = MIN_Y - y_deviation
 		2:
-			x = MIN_X - x_deviation
-			y = MAX_Y + y_deviation
+			x = MIN_X + x_deviation
+			y = rng.randi_range(MIN_Y, MAX_Y)
 		3:
 			x = MIN_X - x_deviation
-			y = MIN_Y - y_deviation
+			y = rng.randi_range(MIN_Y, MAX_Y)
 	return [x, y]
 
 func change_level():
@@ -175,3 +180,18 @@ func change_level():
 	print(level)
 	print(variant)
 
+func _on_DarkJadeTimer_timeout():
+	var darkjade = DarkJade.instance()
+	if (rng.randi() % 2 == 0):
+		darkjade.position.x = MIN_X - 20
+		darkjade.direction = Vector2(1, 0)
+	else:
+		darkjade.position.x = MAX_X + 20
+		darkjade.direction = Vector2(-1, 0)
+	darkjade.position.y = rng.randi_range(MIN_Y, MAX_Y)
+	while abs(darkjade.position.y - get_parent().get_node("Player").position.y) < 50:
+		darkjade.position.y = rng.randi_range(MIN_Y, MAX_Y)
+	darkjade.scale = Vector2(2,2)
+	add_child(darkjade)
+	
+	

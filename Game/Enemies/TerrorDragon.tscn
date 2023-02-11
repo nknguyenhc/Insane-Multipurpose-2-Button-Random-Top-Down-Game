@@ -46,15 +46,18 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( -3.41128, -3.41128 )
 shape = SubResource( 6 )
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2( 0, 0.5 )
+scale = Vector2( 1.71156, 1.71156 )
 shape = SubResource( 12 )
 
 [node name="immobolise_timer" type="Timer" parent="."]

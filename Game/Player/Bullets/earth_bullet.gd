@@ -1,7 +1,7 @@
 extends Area2D
 
 
-const SPEED = 10
+const SPEED = 15
 var DAMAGE
 
 var target

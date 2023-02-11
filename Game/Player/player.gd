@@ -13,7 +13,7 @@ var sanity = MAX_SANITY
 const SANITY_THRESHOLD = 30
 const PROB = 0.6
 var sanity_decreasing = false
-var sanity_decrease_pf = 0.05
+var sanity_decrease_pf = 0.08
 var rng = RandomNumberGenerator.new()
 
 var disabled_skill_index
@@ -35,14 +35,14 @@ var freeze_enabled = true
 const Ice = preload("res://Player/Bullets/Ice.tscn")
 
 const stats = {
-	earth_damage = 40,
-	earth_power_up_damage = 100,
-	fire_dpf = 0.1,
-	fire_power_up_dpf = 0.17,
+	earth_damage = 10,
+	earth_power_up_damage = 20,
+	fire_dpf = 0.3,
+	fire_power_up_dpf = 0.5,
 	wind_count = 5,
 	wind_power_up_count = 8,
-	wind_dpf = 0.25,
-	wind_power_up_dpf = 0.4,
+	wind_dpf = 0.1,
+	wind_power_up_dpf = 0.15,
 	freeze_lower_chance = 20,
 	freeze_power_up_chance = 40,
 	freeze_lower_duration = 1,
@@ -207,7 +207,6 @@ func is_Earth():
 
 func Earth_attack():
 	if earth_enabled:
-		print("earth attack!")
 		earth_enabled = false
 		$SkillTimers/EarthCooldown.start()
 		var earth_bullet = EarthBullet.instance()
@@ -217,8 +216,11 @@ func Earth_attack():
 		earth_bullet.target = game.nearest_enemy()
 		if !skill_powering_up:
 			earth_bullet.DAMAGE = stats["earth_damage"]
+			earth_bullet.get_node("AnimatedSprite").animation = "small"
 		else:
+			$SkillTimers/EarthCooldown.wait_time = 0.4
 			earth_bullet.DAMAGE = stats["earth_power_up_damage"]
+			earth_bullet.get_node("AnimatedSprite").animation = "default"
 		get_parent().add_child(earth_bullet)
 
 
@@ -227,11 +229,11 @@ func Fire_attack():
 		fire_enabled = false
 		$SkillTimers/FireCooldown.start()
 		var fire = Fire.instance()
-		fire.scale = Vector2(1.5, 1.5)
 		fire.position = position
 		if !skill_powering_up:
 			fire.DPF = stats["fire_dpf"]
 		else:
+			fire.scale = Vector2(1.5, 1.5)
 			fire.DPF = stats["fire_power_up_dpf"]
 		get_parent().add_child(fire)
 
@@ -318,15 +320,14 @@ func receive_bonus():
 	if p < prob_benchmark():
 		if not background_changed:
 			change_background()
-		else:
-			var randint = rng.randf_range(0, 1)
-			match randint:
-				0: # switch buttons
-					switch_buttons()
-				1: # disable one skill
-					disabled_skill_index = rng.randf_range(0, num_of_skills_attained - 1)
-					flip_skill_state()
-					$SkillTimers/DisableTimer.start()
+		var randint = rng.randf_range(0, 1)
+		match randint:
+			0: # switch buttons
+				switch_buttons()
+			1: # disable one skill
+				disabled_skill_index = rng.randf_range(0, num_of_skills_attained - 1)
+				flip_skill_state()
+				$SkillTimers/DisableTimer.start()
 		
 		power_up = -1
 	else:

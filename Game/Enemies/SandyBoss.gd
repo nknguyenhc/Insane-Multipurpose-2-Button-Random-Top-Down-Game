@@ -27,8 +27,6 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	player = get_parent().get_parent().get_node("Player")
-	freeze_chance = player.freeze_chance / 2
-	freeze_duration = player.freeze_duration
 	$move_timer.start()
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	health_bar = Health_bar.instance()
@@ -62,6 +60,8 @@ func take_damage(damage, element):
 		damage *= 1.5
 	health -= damage
 	if element == "Freeze":
+		freeze_chance = player.freeze_chance / 2
+		freeze_duration = player.freeze_duration
 		if(rng.randi() % 100 < freeze_chance):
 			is_immobilised = true
 			get_node("immobolise_timer").wait_time = freeze_duration
@@ -90,10 +90,16 @@ func _on_move_timer_timeout():
 func _on_summon_timer_timeout():
 	get_parent().prev_flock_finished = true
 	sandy = Sandy.instance()
-	sandy.position.x = rng.randf(position.x - 20, position.x + 20)
-	sandy.position.y = rng.randf(position.y - 20, position.y + 20)
-	sandy.size = sandy.Size[rng.randi % 2]
-	sandy.scale = Vector2(3,3)
+	sandy.position.x = rng.randf_range(position.x - 20, position.x + 20)
+	sandy.position.y = rng.randf_range(position.y - 20, position.y + 20)
+	if rng.randi() % 2 == 1:
+		sandy.size = sandy.Size.small
+	else:
+		sandy.size = sandy.Size.big
+	if sandy.size == sandy.Size.small:
+		sandy.scale = Vector2(2.5,2.5)
+	else:
+		sandy.scale = Vector2(4,4)
 	get_parent().add_child(sandy)
 	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	$summon_timer.start()
