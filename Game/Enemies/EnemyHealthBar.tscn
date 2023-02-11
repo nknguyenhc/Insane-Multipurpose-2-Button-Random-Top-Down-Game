@@ -4,6 +4,7 @@
 [ext_resource path="res://UI/assets/Pixel1_Healthbar_0002_pixel1_border.png" type="Texture" id=2]
 
 [node name="EnemyHealthBar" type="Node2D"]
+scale = Vector2( 0.400001, 0.520001 )
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
 margin_left = -48.0
