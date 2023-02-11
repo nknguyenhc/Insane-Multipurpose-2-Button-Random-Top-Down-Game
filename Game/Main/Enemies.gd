@@ -1,9 +1,9 @@
 extends Node
 
-const MIN_X = 0
-const MAX_X = 1024
-const MIN_Y = 0
-const MAX_Y = 600
+const MIN_X = 20
+const MAX_X = 1000
+const MIN_Y = 20
+const MAX_Y = 550
 
 var Fiery = preload("res://Enemies/Fiery.tscn")
 var Icy = preload("res://Enemies/Icy.tscn")
@@ -62,14 +62,14 @@ func _on_FlockTimer_timeout():
 	# current flock starts
 	enemy_index = 0
 	curr_flock_size = rng.randf_range(5, max(5, 2 * level)) # 5 - 2 * level
-	$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.2, -level), 1))
+	$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.4, -level), 1))
 	$EnemyTimer.start()
 
 func _on_EnemyTimer_timeout():
 	summon_a_small_monster()
 	enemy_index += 1
 	if enemy_index < curr_flock_size:
-		$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.2, -level), 1))
+		$EnemyTimer.wait_time = rng.randf_range(0.1, max(6 * pow(1.4, -level), 1))
 		$EnemyTimer.start()
 	else:
 		prev_flock_finished = true

@@ -14,6 +14,13 @@ script = ExtResource( 2 )
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
 
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 491, 324 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
+
 [node name="Enemies" type="Node" parent="."]
 script = ExtResource( 3 )
 
@@ -26,13 +33,6 @@ one_shot = true
 
 [node name="TerrorTimer" type="Timer" parent="Enemies"]
 wait_time = 10.0
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 491, 324 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-autoplay = true
 
 [connection signal="timeout" from="Enemies/FlockTimer" to="Enemies" method="_on_FlockTimer_timeout"]
 [connection signal="timeout" from="Enemies/EnemyTimer" to="Enemies" method="_on_EnemyTimer_timeout"]
