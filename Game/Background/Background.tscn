@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Background/ParallaxBackground.gd" type="Script" id=1]
 [ext_resource path="res://Background/Cloud Tileset.png" type="Texture" id=2]
+[ext_resource path="res://Background/eye.png" type="Texture" id=3]
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.52514, 1 )
@@ -257,3 +258,61 @@ tile_set = SubResource( 8 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 131085, 0, 0, 131086, 1, 0, 131087, 1, 0, 131088, 1, 0, 131089, 2, 0, 131090, 3, 0, 131098, 0, 0, 131099, 3, 0, 196612, 0, 0, 196613, 1, 0, 196614, 3, 0, 196621, 12, 0, 196622, 10, 0, 196623, 6, 0, 196624, 6, 0, 196625, 6, 0, 196626, 7, 0, 196634, 4, 0, 196635, 1610612740, 0, 262148, 4, 0, 262149, 5, 0, 262150, 7, 0, 262158, 12, 0, 262159, 10, 0, 262160, 9, 0, 262161, 9, 0, 262162, 9, 0, 262163, 3, 0, 262170, 4, 0, 262171, 1610612740, 0, 327684, 4, 0, 327685, 6, 0, 327686, 5, 0, 327687, 1, 0, 327688, 3, 0, 327695, 8, 0, 327696, 9, 0, 327697, 10, 0, 327698, 10, 0, 327699, 10, 0, 327700, 3, 0, 327706, 4, 0, 327707, 5, 0, 327708, 1, 0, 327709, 3, 0, 393220, 536870927, 0, 393221, 9, 0, 393222, 9, 0, 393223, 9, 0, 393224, 11, 0, 393231, 12, 0, 393232, 13, 0, 393233, 13, 0, 393234, 14, 0, 393235, 13, 0, 393236, 15, 0, 393242, 12, 0, 393243, 13, 0, 393244, 14, 0, 393245, 15, 0, 458757, 536870927, 0, 458758, 13, 0, 458759, 14, 0, 458760, 15, 0, 720914, 536870915, 0, 720915, 2, 0, 720916, 2, 0, 720917, 2, 0, 720918, 2, 0, 720919, 3, 0, 786438, 536870915, 0, 786439, 3, 0, 786450, 536870923, 0, 786451, 10, 0, 786452, 9, 0, 786453, 9, 0, 786454, 9, 0, 786455, 7, 0, 851974, 1610612739, 0, 851975, 1073741827, 0, 851986, 536870923, 0, 851987, 10, 0, 851988, 10, 0, 851989, 10, 0, 851990, 9, 0, 851991, 7, 0, 917515, 1073741836, 0, 917516, 1, 0, 917517, 1, 0, 917518, 1610612748, 0, 917522, 1610612739, 0, 917523, 10, 0, 917524, 10, 0, 917525, 10, 0, 917526, 9, 0, 917527, 536870924, 0, 917530, 1073741836, 0, 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 917534, 3, 0, 983051, 1610612739, 0, 983052, 1073741825, 0, 983053, 1073741825, 0, 983054, 1073741827, 0, 983059, 1610612739, 0, 983060, 536870925, 0, 983061, 536870925, 0, 983062, 13, 0, 983066, 12, 0, 983067, 13, 0, 983068, 14, 0, 983069, 14, 0, 983070, 15, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/Background"]
+margin_right = 1025.0
+margin_bottom = 607.0
+color = Color( 0.47451, 0.164706, 0, 1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 96, 182 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 3 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 876, 103 )
+rotation = 0.541325
+scale = Vector2( 8, 8 )
+texture = ExtResource( 3 )
+
+[node name="Sprite3" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 440, 370 )
+rotation = 0.513235
+scale = Vector2( 9, 9 )
+texture = ExtResource( 3 )
+
+[node name="Sprite4" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 909, 304 )
+rotation = -1.42097
+scale = Vector2( 10, 10 )
+texture = ExtResource( 3 )
+
+[node name="Sprite5" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 381, 128 )
+rotation = -1.42097
+scale = Vector2( 10, 10 )
+texture = ExtResource( 3 )
+
+[node name="Sprite6" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 648, 164 )
+rotation = -2.74729
+scale = Vector2( 10, 10 )
+texture = ExtResource( 3 )
+
+[node name="Sprite7" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 656, 494 )
+rotation = -2.40813
+scale = Vector2( 10, 10 )
+texture = ExtResource( 3 )
+
+[node name="Sprite8" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 222, 282 )
+rotation = -1.66915
+scale = Vector2( 10, 10 )
+texture = ExtResource( 3 )
+
+[node name="Sprite9" type="Sprite" parent="ParallaxBackground/Background/ColorRect"]
+position = Vector2( 183, 473 )
+rotation = -1.66915
+scale = Vector2( 10, 10 )
+texture = ExtResource( 3 )
