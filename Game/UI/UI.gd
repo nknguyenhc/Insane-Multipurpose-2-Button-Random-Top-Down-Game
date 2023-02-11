@@ -24,7 +24,7 @@ func _ready():
 
 func change_element():
 	for element in displayElement.get_children():
-		print(elements)
+		print(elements.find(element.animation))
 		element.animation = elements[(elements.find(element.animation) + 1) % elements.size()]
 
 
@@ -38,3 +38,7 @@ func add_element():
 	print(newElement.position.y)
 	newElement.position.y += iconSpacing * (elements.size() - 1)
 	print(newElement.position.y)
+	var i = 0
+	for element in displayElement.get_children():
+		element.animation = elements[i]
+		i += 1

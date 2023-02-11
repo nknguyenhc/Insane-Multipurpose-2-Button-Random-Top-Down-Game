@@ -193,6 +193,7 @@ func acquire_new_skill():
 	if num_of_skills_attained < 4:
 		num_of_skills_attained += 1
 		UI.add_element()
+		skill_index = 0
 
 
 func is_Earth():
