@@ -53,30 +53,19 @@ func nearest_enemies(n):
 	enemies.remove(0)
 	enemies.remove(0)
 	enemies.remove(0)
+	var attack_num = min(n, enemies.size())
+	var distances = []
 	for enemy in enemies:
-		if nearest_enemies.empty():
-			nearest_enemies.append(enemy)
-		elif nearest_enemies.size() < n:
-			insert(nearest_enemies, enemy, n)
-		elif (enemy.position - $Player.position).length() < (nearest_enemies[n - 1].position - $Player.position).length():
-			insert(nearest_enemies, enemy, n)
-	print(nearest_enemies.size())
+		distances.append((enemy.position - $Player.position).length())
+	print(distances)
+	distances.sort()
+	print(distances)
+	for i in range(0, attack_num):
+		for enemy in enemies:
+			if (enemy.position - $Player.position).length() == distances[i]:
+				nearest_enemies.append(enemy)
 	return nearest_enemies
-
-
-func insert(enemies, new_enemy, n):
-	var i = 0
-	while i < enemies.size():
-		if (new_enemy.position - $Player.position).length() < (enemies[i].position - $Player.position).length():
-			enemies.insert(i, new_enemy)
-			break
-		else:
-			i += 1
-	if enemies.size() > n:
-		for j in range(enemies.size(), n):
-			enemies.remove(n)
-
-
+	
 func delete_earth_aiming():
 	if weakref(earth_aiming).get_ref():
 		earth_aiming.queue_free()

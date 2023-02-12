@@ -262,7 +262,6 @@ func Fire_attack():
 
 func Wind_attack():
 	if wind_enabled and not wind_disabled:
-		print("attack")
 		wind_enabled = false
 		$SkillTimers/WindCooldown.start()
 		var count = stats["wind_count"]
@@ -300,6 +299,7 @@ func Freeze_attack():
 		enemies.remove(0)
 		enemies.remove(0)
 		enemies.remove(0)
+		print(enemies)
 		for enemy in enemies:
 			enemy.take_damage(0, "Freeze")
 		get_parent().add_child(ice)

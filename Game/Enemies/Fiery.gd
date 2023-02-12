@@ -62,6 +62,7 @@ func _process(delta):
 
 
 func take_damage(damage, element):
+	print("damage received!")
 	if element == "Fire":
 		health -= damage * 0.2
 	else:

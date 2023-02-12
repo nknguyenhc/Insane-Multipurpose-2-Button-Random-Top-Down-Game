@@ -63,6 +63,7 @@ one_shot = true
 wait_time = 7.0
 
 [node name="summon_timer" type="Timer" parent="."]
+one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

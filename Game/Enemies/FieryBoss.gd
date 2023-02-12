@@ -27,6 +27,7 @@ func _ready():
 	health = MAX_HEALTH
 	speed = MAX_SPEED
 	$move_timer.start()
+	$summon_timer.wait_time = rng.randf_range(1, max(2, 50.0 / level))
 	player = get_parent().get_parent().get_node("Player")
 	health_bar = Health_bar.instance()
 	health_bar.position.x -= 0
