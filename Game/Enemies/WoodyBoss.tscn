@@ -44,7 +44,7 @@ shape = SubResource( 12 )
 scale = Vector2( 2.0329, 2.0329 )
 frames = SubResource( 2 )
 animation = "Boss"
-frame = 1
+frame = 2
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]

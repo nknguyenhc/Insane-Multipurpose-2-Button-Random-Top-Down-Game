@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/NPC 3/Frame/NPC_13.png" type="Texture" id=2]
@@ -74,6 +74,21 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "recovery"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.360784, 1, 0.227451, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -94,6 +109,19 @@ one_shot = true
 
 [node name="SanityTimer" type="Timer" parent="GeneralTimers"]
 wait_time = 0.4
+one_shot = true
+
+[node name="BackgroundTimer" type="Timer" parent="GeneralTimers"]
+one_shot = true
+
+[node name="BonusDisplayTimer" type="Timer" parent="GeneralTimers"]
+wait_time = 8.0
+one_shot = true
+
+[node name="InsanityPopUpTimer" type="Timer" parent="GeneralTimers"]
+one_shot = true
+
+[node name="SecondFadeTimer" type="Timer" parent="GeneralTimers"]
 one_shot = true
 
 [node name="SkillTimers" type="Node" parent="."]
@@ -133,10 +161,15 @@ frames = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/default = SubResource( 5 )
+anims/recovery = SubResource( 6 )
 
 [connection signal="timeout" from="GeneralTimers/InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
 [connection signal="timeout" from="GeneralTimers/SwitchDetector" to="." method="_on_SwitchDetector_timeout"]
 [connection signal="timeout" from="GeneralTimers/SanityTimer" to="." method="_on_SanityTimer_timeout"]
+[connection signal="timeout" from="GeneralTimers/BackgroundTimer" to="." method="_on_BackgroundTimer_timeout"]
+[connection signal="timeout" from="GeneralTimers/BonusDisplayTimer" to="." method="_on_BonusDisplayTimer_timeout"]
+[connection signal="timeout" from="GeneralTimers/InsanityPopUpTimer" to="." method="_on_InsanityPopUpTimer_timeout"]
+[connection signal="timeout" from="GeneralTimers/SecondFadeTimer" to="." method="_on_SecondFadeTimer_timeout"]
 [connection signal="timeout" from="SkillTimers/EarthCooldown" to="." method="_on_EarthCooldown_timeout"]
 [connection signal="timeout" from="SkillTimers/FireCooldown" to="." method="_on_FireCooldown_timeout"]
 [connection signal="timeout" from="SkillTimers/WindCooldown" to="." method="_on_WindCooldown_timeout"]

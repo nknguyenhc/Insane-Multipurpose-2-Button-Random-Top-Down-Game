@@ -1,8 +1,24 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Background/ParallaxBackground.gd" type="Script" id=1]
 [ext_resource path="res://Background/Cloud Tileset.png" type="Texture" id=2]
 [ext_resource path="res://Background/eye.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=9]
+resource_name = "default"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.52514, 1 )
@@ -245,6 +261,9 @@ script = ExtResource( 1 )
 [node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
 motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Fade" type="AnimationPlayer" parent="ParallaxBackground/Background"]
+anims/default = SubResource( 9 )
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackground/Background"]
 margin_right = 1025.0

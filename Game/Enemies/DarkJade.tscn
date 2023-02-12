@@ -44,7 +44,6 @@ shape = SubResource( 10 )
 modulate = Color( 0.929412, 0.976471, 0.517647, 1 )
 frames = SubResource( 1 )
 animation = "baby"
-frame = 3
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]

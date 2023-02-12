@@ -34,6 +34,12 @@ var wind_enabled = true
 var freeze_enabled = true
 const Ice = preload("res://Player/Bullets/Ice.tscn")
 
+var earth_disabled = false
+var fire_disabled = false
+var wind_disabled = false
+var freeze_disabled = false
+
+
 const stats = {
 	earth_damage = 15,
 	earth_power_up_damage = 22.5,
@@ -62,7 +68,7 @@ const changes = {
 		"min": 0.3,
 		"max": 0.6
 	},
-	"fire_power_up": {
+	"fire_power_up_dpf": {
 		"increment": 0.15
 	},
 	"wind_count": {
@@ -99,12 +105,16 @@ var freeze_chance = stats["freeze_lower_chance"]
 var freeze_duration = stats["freeze_lower_duration"]
 
 var background_changed = false
+var bonus_label
+var background
 
 
 func _ready():
 	game = get_parent()
 	UI = game.get_node("UI")
-
+	bonus_label = get_parent().get_node("UI").get_node("LeftHalf").get_node("HBoxContainer") \
+			.get_node("Container").get_node("BonusLabel")
+	background = game.get_node("Background/ParallaxBackground/Background")
 
 func _physics_process(delta):
 	
@@ -126,10 +136,8 @@ func _physics_process(delta):
 	
 	if sanity_decreasing:
 		change_sanity(-sanity_decrease_pf)
-		print(sanity)
 	
 	if Input.is_action_just_pressed(button2):
-		print(freeze_chance)
 		if skill_index == 0:
 			Earth_attack()
 		elif skill_index == 1:
@@ -145,12 +153,14 @@ func _physics_process(delta):
 
 func take_damage(damage):
 	if not invincibility:
-		health -= damage
+		health = min(health - damage, MAX_HEALTH)
 		invincibility = true
 		$GeneralTimers/InvincibilityTimer.start()
 		UI.get_node("RightHalf/VBoxContainer/Container/HealthBar/TextureProgress").value = health
-		$AnimationPlayer.play("default")
-		print(health)
+		if damage > 0: 
+			$AnimationPlayer.play("default")
+		else:
+			$AnimationPlayer.play("recovery")
 
 
 func change_sanity(value):
@@ -169,6 +179,7 @@ func _on_InvincibilityTimer_timeout():
 
 
 func switch_buttons():
+	display_bonus("Buttons have been switched!")
 	button1 = "button2"
 	button2 = "button1"
 	if UI.get_node("LeftHalf/HBoxContainer2/VBoxContainer/SwitchKey/Label").text == "Switch":
@@ -180,8 +191,18 @@ func switch_buttons():
 
 
 func change_background():
-	game.get_node("Background/ParallaxBackground/Background/ColorRect").show()
 	background_changed = true
+	var time = rng.randi_range(10, 20)
+	display_bonus("Insanity zone for " + String(time) + " seconds!")
+	
+	var timer = $GeneralTimers/BackgroundTimer
+	var second_fade = $GeneralTimers/SecondFadeTimer
+	timer.wait_time = time
+	second_fade.wait_time = time - 1
+	timer.start()
+	second_fade.start()
+	$GeneralTimers/InsanityPopUpTimer.start()	
+	background.get_node("Fade").play("default")
 
 
 func switch_skill():
@@ -206,7 +227,7 @@ func is_Earth():
 
 
 func Earth_attack():
-	if earth_enabled:
+	if earth_enabled and not earth_disabled:
 		earth_enabled = false
 		$SkillTimers/EarthCooldown.start()
 		var earth_bullet = EarthBullet.instance()
@@ -225,7 +246,7 @@ func Earth_attack():
 
 
 func Fire_attack():
-	if fire_enabled:
+	if fire_enabled and not fire_disabled:
 		fire_enabled = false
 		$SkillTimers/FireCooldown.start()
 		var fire = Fire.instance()
@@ -240,7 +261,7 @@ func Fire_attack():
 
 
 func Wind_attack():
-	if wind_enabled:
+	if wind_enabled and not wind_disabled:
 		print("attack")
 		wind_enabled = false
 		$SkillTimers/WindCooldown.start()
@@ -262,7 +283,7 @@ func Wind_attack():
 
 
 func Freeze_attack():
-	if freeze_enabled:
+	if freeze_enabled and not freeze_disabled:
 		freeze_enabled = false
 		$SkillTimers/FreezeCooldown.start()
 		var ice = Ice.instance()
@@ -304,67 +325,111 @@ func prob_benchmark():
 	return (MAX_SANITY - sanity) / MAX_SANITY * PROB
 
 
-func flip_skill_state():
+func flip_skill_state(time):
 	if disabled_skill_index == 0:
-		earth_enabled = !earth_enabled
+		earth_disabled = true
+		display_bonus("Earth disabled for " + String(time) + " seconds!")
 	elif disabled_skill_index == 1:
-		fire_enabled = !fire_enabled
+		fire_disabled = true
+		display_bonus("Fire disabled for " + String(time) + " seconds!")
 	elif disabled_skill_index == 2:
-		wind_enabled = !wind_enabled
+		wind_disabled = true
+		display_bonus("Wind disabled for " + String(time) + " seconds!")
 	elif disabled_skill_index == 3:
-		freeze_enabled = !freeze_enabled
+		freeze_disabled = true
+		display_bonus("Freeze disabled for " + String(time) + " seconds!")
 
 
 func receive_bonus():
 	var p = rng.randf()
 	var power_up
 	if p < prob_benchmark():
-		if not background_changed:
-			change_background()
-		var randint = rng.randf_range(0, 1)
+		var randint = rng.randi() % 4
 		match randint:
 			0: # switch buttons
 				switch_buttons()
 			1: # disable one skill
-				disabled_skill_index = rng.randf_range(0, num_of_skills_attained - 1)
-				flip_skill_state()
+				disabled_skill_index = rng.randi() % num_of_skills_attained
+				var time = rng.randi_range(5, 15)
+				$SkillTimers/DisableTimer.wait_time = time
 				$SkillTimers/DisableTimer.start()
-		
-		power_up = -1
+				flip_skill_state(time)
+			2: # change background
+				if not background_changed:
+					change_background()
+				else:
+					switch_buttons()
+			3: # health regen
+				var recovery = rng.randi_range(10, min(MAX_HEALTH - health, 15))
+				take_damage(-recovery)
+				display_bonus("Health recovered by " + String(recovery) + "!")
+					
 	else:
-		power_up = 1
+		var tt = "up"
+		if rng.randi() % 10 < 8:
+			power_up = 1
+		else:
+			power_up = -1
+			tt = "down"
 	
-	var randint = rng.randf_range(0, num_of_skills_attained - 1)
-	match randint:
-		0:
-			var new_stats = stats["earth_damage"] + power_up * changes["earth_damage"]["increment"]
-			if new_stats >= changes["earth_damage"]["min"] and new_stats <= changes["earth_damage"]["max"]:
-				stats["earth_damage"] = new_stats
-				stats["earth_power_up_damage"] += power_up * changes["earth_power_up_damage"]["increment"]
-		1:
-			var new_stats = stats["fire"] + power_up * changes["fire_dpf"]["increment"]
-			if new_stats >= changes["fire_dpf"]["min"] and new_stats <= changes["fire_dpf"]["max"]:
-				stats["fire_dpf"] = new_stats
-				stats["fire_power_up_dpf"] += power_up * changes["fire_power_up_dpf"]["increment"]
-		2:
-			var new_stats = stats["wind_count"] + power_up * changes["wind_count"]["increment"]
-			if new_stats >= changes["wind_count"]["min"] and new_stats <= changes["wind_count"]["max"]:
-				stats["wind_count"] = new_stats
-				stats["wind_power_up_count"] += power_up * changes["wind_power_up_count"]["increment"]
-				stats["wind_dpf"] += power_up * changes["wind_dpf"]["increment"]
-				stats["wind_power_up_dpf"] += power_up * changes["wind_power_up_dpf"]["increment"]
-		3:
-			var new_stats = stats["freeze_lower_chance"] + power_up * changes["freeze_lower_chance"]["increment"]
-			if new_stats >= changes["freeze_lower_chance"]["min"] and new_stats <= changes["freeze_lower_chance"]["max"]:
-				stats["freeze_lower_chance"] = new_stats
-				stats["freeze_power_up_chance"] += power_up * changes["freeze_power_up_chance"]["increment"]
-				stats["freeze_lower_duration"] += power_up * changes["freeze_lower_duration"]["increment"]
-				stats["freeze_power_up_duration"] += power_up * changes["freeze_power_up_duration"]["increment"]
+		var randint = rng.randi() % num_of_skills_attained
+		match randint:
+			0:
+				var new_stats = stats["earth_damage"] + power_up * changes["earth_damage"]["increment"]
+				if new_stats >= changes["earth_damage"]["min"] and new_stats <= changes["earth_damage"]["max"]:
+					stats["earth_damage"] = new_stats
+					stats["earth_power_up_damage"] += power_up * changes["earth_power_up_damage"]["increment"]
+				display_bonus("Earth has been powered " + tt + "!")
+			1:
+				var new_stats = stats["fire_dpf"] + power_up * changes["fire_dpf"]["increment"]
+				if new_stats >= changes["fire_dpf"]["min"] and new_stats <= changes["fire_dpf"]["max"]:
+					stats["fire_dpf"] = new_stats
+					stats["fire_power_up_dpf"] += power_up * changes["fire_power_up_dpf"]["increment"]
+				display_bonus("Fire has been powered " + tt + "!")
+			2:
+				var new_stats = stats["wind_count"] + power_up * changes["wind_count"]["increment"]
+				if new_stats >= changes["wind_count"]["min"] and new_stats <= changes["wind_count"]["max"]:
+					stats["wind_count"] = new_stats
+					stats["wind_power_up_count"] += power_up * changes["wind_power_up_count"]["increment"]
+					stats["wind_dpf"] += power_up * changes["wind_dpf"]["increment"]
+					stats["wind_power_up_dpf"] += power_up * changes["wind_power_up_dpf"]["increment"]
+				display_bonus("Wind has been powered " + tt + "!")
+			3:
+				var new_stats = stats["freeze_lower_chance"] + power_up * changes["freeze_lower_chance"]["increment"]
+				if new_stats >= changes["freeze_lower_chance"]["min"] and new_stats <= changes["freeze_lower_chance"]["max"]:
+					stats["freeze_lower_chance"] = new_stats
+					stats["freeze_power_up_chance"] += power_up * changes["freeze_power_up_chance"]["increment"]
+					stats["freeze_lower_duration"] += power_up * changes["freeze_lower_duration"]["increment"]
+					stats["freeze_power_up_duration"] += power_up * changes["freeze_power_up_duration"]["increment"]
+				display_bonus("Freeze has been powered " + tt + "!")
 
+func display_bonus(text):
+	bonus_label.text = text
+	bonus_label.show()
+	$GeneralTimers/BonusDisplayTimer.start()
 
 func _on_DisableTimer_timeout():
-	flip_skill_state()
+	earth_disabled = false
+	fire_disabled = false
+	wind_disabled = false
+	freeze_disabled = false
 
 
 func _on_SanityTimer_timeout():
 	sanity_decreasing = true
+
+
+func _on_BackgroundTimer_timeout():
+	background_changed = false
+	game.get_node("Background/ParallaxBackground/Background/ColorRect").hide()
+
+func _on_BonusDisplayTimer_timeout():
+	bonus_label.hide()
+
+
+func _on_InsanityPopUpTimer_timeout():
+	background.get_node("ColorRect").show()
+
+
+func _on_SecondFadeTimer_timeout():
+	background.get_node("Fade").play("default")

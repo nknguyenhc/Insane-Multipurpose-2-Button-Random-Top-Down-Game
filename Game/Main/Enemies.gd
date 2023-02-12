@@ -48,7 +48,7 @@ var waves_label
 
 func _ready():
 	waves_label = get_parent().get_node("UI").get_node("LeftHalf").get_node("HBoxContainer") \
-			.get_node("Label")
+			.get_node("Container").get_node("Label")
 	
 func _process(delta):
 	# All enemies are dead
