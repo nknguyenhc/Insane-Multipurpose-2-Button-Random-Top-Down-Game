@@ -267,9 +267,7 @@ func Wind_attack():
 		var count = stats["wind_count"]
 		if skill_powering_up:
 			count = stats["wind_power_up_count"]
-		print(count)
 		for enemy in game.nearest_enemies(count):
-			print("count")
 			var wind = Wind.instance()
 			wind.scale = Vector2(5, 5)
 			wind.position = enemy.position
@@ -289,7 +287,6 @@ func Freeze_attack():
 		ice.scale = Vector2(10, 10)
 		ice.position = position
 		if !skill_powering_up:
-			print(freeze_chance)
 			freeze_chance = stats["freeze_lower_chance"]
 			freeze_duration = stats["freeze_lower_duration"]
 		else:
@@ -299,7 +296,6 @@ func Freeze_attack():
 		enemies.remove(0)
 		enemies.remove(0)
 		enemies.remove(0)
-		print(enemies)
 		for enemy in enemies:
 			enemy.take_damage(0, "Freeze")
 		get_parent().add_child(ice)

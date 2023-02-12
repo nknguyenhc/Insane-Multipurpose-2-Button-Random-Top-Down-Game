@@ -57,9 +57,7 @@ func nearest_enemies(n):
 	var distances = []
 	for enemy in enemies:
 		distances.append((enemy.position - $Player.position).length())
-	print(distances)
 	distances.sort()
-	print(distances)
 	for i in range(0, attack_num):
 		for enemy in enemies:
 			if (enemy.position - $Player.position).length() == distances[i]:

@@ -11,7 +11,7 @@ var Sandy = preload("res://Enemies/Sandy.tscn")
 var Woody = preload("res://Enemies/Woody.tscn")
 var FieryBoss = preload("res://Enemies/FieryBoss.tscn")
 var SandyBoss = preload("res://Enemies/SandyBoss.tscn")
-var WoodyBoss = preload("res://Enemies/Woody.tscn")
+var WoodyBoss = preload("res://Enemies/WoodyBoss.tscn")
 var Terror = preload("res://Enemies/TerrorDragon.tscn")
 var DarkJade = preload("res://Enemies/DarkJade.tscn")
 var enemy
